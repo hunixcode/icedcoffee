@@ -1,2 +1,10 @@
-# icedcoffee
-hunixcode handcrafted portfolio. this repository will be the demonstration of my web development skills.
+<div align="center">
+    <img src="./assets/badge.png" height="300">
+    <h1>Iced Coffee</h1>
+    <p>My personal portfolio hadn-made using React x Vite
+        </br>Feel free to contribute if you feel like putting your footprint
+        </br>somewhere in github
+    </p>
+    <img src="https://img.shields.io/github/repo-size/hunixcode/icedcoffee" />
+    <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/hunixcode/icedcoffee">
+</div>
