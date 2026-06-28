@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./assets/badge.png" height="300">
+    <img src="./assets/badge.png" height="200">
     <h1>Iced Coffee</h1>
     <p>My personal portfolio hadn-made using React x Vite
         </br>Feel free to contribute if you feel like putting your footprint
