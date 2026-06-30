@@ -1,0 +1,12 @@
+.footer {
+    font-family: "JetBrains mono", monospace;
+    font-size: 12px;
+    position: fixed;
+    box-shadow: 0 0 20px rgb(206, 206, 206);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+}

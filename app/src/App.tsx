@@ -1,12 +1,15 @@
 import './App.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Hero from './components/Hero';
 
-function App(){
+export default function App(){
   return (
     <>
-      <h1>Test text</h1>
+      <Header/>
+      <Hero/>
+      <Footer/>
     </>
   )
 }
-
-export default App
   

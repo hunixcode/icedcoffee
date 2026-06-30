@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    margin-top: 20px;
+    position: fixed;
+    padding: 0.6rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 0 0px 10px rgb(185, 185, 185);
+}
+
+.links {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    display: flex;
+    gap: 2rem;
+    a {
+        color:rgb(61, 61, 61);
+    }
+}
+
+.logo {
+    width: 200px;
+    height: auto;
+}
