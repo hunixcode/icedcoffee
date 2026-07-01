@@ -5,7 +5,7 @@ import ContactMe from './ContactMe'
 import { useState } from 'react';
 
 export default function MainCard(){
-    const [isOpen, setOpen] = useState(false);
+    const [isOpen, setOpen] = useState(true);
     return (
         <div className="canva">
             <Socials/>
