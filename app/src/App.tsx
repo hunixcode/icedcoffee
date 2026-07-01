@@ -1,15 +1,17 @@
-import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Hero from './components/Hero';
+import Home from './pages/Home'
+import Profile from './pages/Profile'
+import MainLayout from './Layout'
+
+import {Routes, Route} from 'react-router-dom'
 
 export default function App(){
   return (
-    <>
-      <Header/>
-      <Hero/>
-      <Footer/>
-    </>
+    <Routes>
+      <Route element={<MainLayout/>}>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+      </Route>
+    </Routes>
   )
 }
   

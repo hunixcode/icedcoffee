@@ -10,8 +10,9 @@
     position: fixed;
     padding: 0.6rem 2rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+    gap: 6rem;
     background-color: rgb(255, 255, 255);
     border-radius: 15px;
     box-shadow: 0 0px 10px rgb(185, 185, 185);
@@ -25,9 +26,4 @@
     a {
         color:rgb(61, 61, 61);
     }
-}
-
-.logo {
-    width: 200px;
-    height: auto;
 }
