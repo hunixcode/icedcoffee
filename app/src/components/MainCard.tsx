@@ -2,8 +2,10 @@ import './styles/MainCard.css'
 import * as motion from 'motion/react-client'
 import Socials from './Socials'
 import ContactMe from './ContactMe'
+import { useState } from 'react';
 
 export default function MainCard(){
+    const [isOpen, setOpen] = useState(false);
     return (
         <div className="canva">
             <Socials/>
@@ -22,7 +24,7 @@ export default function MainCard(){
                     I build stuff, break them and then rebuilds them. Feel free to reach out if you find my person interesting.
                 </p>
             </motion.div>
-            <ContactMe/>
+            {isOpen && <ContactMe setOpen={setOpen} />}
         </div>
     )
 }
