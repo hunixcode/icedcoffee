@@ -13,8 +13,8 @@ export default function Quote(){
     return (
         <motion.div className="inspirational"
         style={{maxWidth:"400px",textAlign:"center",fontFamily:"Archivo"}}
-        initial={{opacity: 0, y: 50}}
-        animate={{opacity: 1, y: 0}}
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
         transition={{
             duration: 0.4,
             ease:"easeOut"
