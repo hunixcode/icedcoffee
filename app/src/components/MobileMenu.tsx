@@ -1,5 +1,6 @@
 import * as motion from "motion/react-client"
 import Hamburger from 'hamburger-react'
+import { Link } from 'react-router-dom'
 import "./styles/MobileMenu.css"
 
 export default function MobileMenu({ setOpen }: { setOpen: (open: boolean) => void }){
@@ -15,10 +16,10 @@ export default function MobileMenu({ setOpen }: { setOpen: (open: boolean) => vo
                 <Hamburger toggled={true} toggle={() => setOpen(false)} size={20}/>
             </div>
             <div className="mobile-menu-links">
-                <a onClick={() => setOpen(false)} href="/">HOME</a>
-                <a onClick={() => setOpen(false)} href="/profile">PROFILE</a>
-                <a onClick={() => setOpen(false)} href="/projects">PROJECTS</a>
-                <a onClick={() => setOpen(false)} href="/contact">GET IN TOUCH</a>
+                <Link onClick={() => setOpen(false)} to="/">HOME</Link>
+                <Link onClick={() => setOpen(false)} to="/profile">PROFILE</Link>
+                <Link onClick={() => setOpen(false)} to="/projects">PROJECTS</Link>
+                <Link onClick={() => setOpen(false)} to="/contact">GET IN TOUCH</Link>
             </div>
         </motion.div>
     )
