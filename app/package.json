@@ -6,7 +6,7 @@
   "homepage": "https://hunixcode.github.io/icedcoffee",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d dist",
     "start": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
