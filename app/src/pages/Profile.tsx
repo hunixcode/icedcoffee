@@ -27,7 +27,7 @@ export default function Profile(){
                 </motion.div>
                 <Socials/>
                 <Quote/>
-                <div style={{display:"flex",width:"100%",gap:"1rem"}}>
+                <div className="stats-row" style={{display:"flex",width:"100%",gap:"1rem"}}>
                     <GithubStats/>
                     <FeaturedProject/>
                 </div>

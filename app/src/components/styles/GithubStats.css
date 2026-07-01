@@ -9,3 +9,10 @@
     gap: 1rem;
     min-width: 180px;
 }
+
+@media (max-width: 700px){
+    .github-stats {
+        min-width: unset;
+        width: 100%;
+    }
+}
