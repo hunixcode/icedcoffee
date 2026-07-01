@@ -39,7 +39,10 @@
 }
 
 @media (max-width: 700px){
-    .larp {
-        font-size: 10px;
+    .featured-project {
+        width: 100%;
+    }
+    .featured-project p {
+        font-size: 16px;
     }
 }
