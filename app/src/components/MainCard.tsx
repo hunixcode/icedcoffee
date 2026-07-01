@@ -1,6 +1,7 @@
 import './styles/MainCard.css'
 import * as motion from 'motion/react-client'
 import Socials from './Socials'
+import ContactMe from './ContactMe'
 
 export default function MainCard(){
     return (
@@ -21,6 +22,7 @@ export default function MainCard(){
                     I build stuff, break them and then rebuilds them. Feel free to reach out if you find my person interesting.
                 </p>
             </motion.div>
+            <ContactMe/>
         </div>
     )
 }

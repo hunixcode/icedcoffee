@@ -1,0 +1,44 @@
+.contact-me {
+    margin-top:10px;
+    display: flex;
+    box-shadow: 0 0 10px rgb(155, 155, 155);
+    padding: 1rem;
+    justify-content: baseline;
+    gap: 3rem;
+    align-items: center;
+    border-radius: 10px;
+    max-height: 300px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: "Archivo", sans-serif;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.join {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 5px;
+    border: solid 1px;
+    background-color: rgb(59, 59, 59);
+    transition: 0.2s all;
+    color:white;
+}
+.join:hover {
+    transform: scale(1.02);
+    background-color: white;
+    color: black;
+    border: solid 1px rgb(160, 160, 160);
+}
+
+@media (max-width:700px){
+    .contact-me {
+        gap:1rem;
+    }
+}

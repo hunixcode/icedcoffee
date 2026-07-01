@@ -29,7 +29,7 @@ export default function LoadingScreen(){
                 delay: 0.1,
                 duration:0.8,
                 ease:"easeOut"
-            }}>thanks for the visit</motion.h1>
+            }}>hunixcode</motion.h1>
         </div>
     )
 }

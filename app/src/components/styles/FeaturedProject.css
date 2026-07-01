@@ -4,6 +4,7 @@
     align-items: center;
     box-shadow: 0 0 10px gray;
     justify-content: space-between;
+    gap: 1rem;
     padding: 1rem;
     font-family: "JetBrains mono", monospace;
     border-radius: 10px;
