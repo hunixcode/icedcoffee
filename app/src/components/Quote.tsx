@@ -25,7 +25,7 @@ export default function Quote(){
 }
 
 function useQuoteData() {
-  const [quoteData, setQuoteData] = useState(null);
+  const [quoteData, setQuoteData] = useState<any>(null);
 
   useEffect(() => {
     fetch("https://dummyjson.com/quotes/random")

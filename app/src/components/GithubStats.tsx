@@ -37,7 +37,7 @@ export default function GithubStats(){
 }
 
 function useUserData() {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<any>(null);
 
   useEffect(() => {
     fetch("https://api.github.com/users/hunixcode")
