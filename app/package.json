@@ -15,10 +15,13 @@
   "dependencies": {
     "@boxicons/react": "^1.0.3",
     "gsap": "^3.15.0",
+    "hamburger-react": "^2.5.2",
     "motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-router-dom": "^7.18.1"
+    "react-loading-indicators": "^1.0.1",
+    "react-router-dom": "^7.18.1",
+    "three": "^0.185.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

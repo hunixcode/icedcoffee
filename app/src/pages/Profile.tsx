@@ -2,20 +2,20 @@ import './styles/Profile.css'
 import * as motion from 'motion/react-client'
 import Socials from '../components/Socials'
 import GithubStats from '../components/GithubStats'
+import FeaturedProject from '../components/FeaturedProject'
+import Quote from '../components/Quote'
 
 export default function Profile(){
     return (
         <section className="profile-wrapper">
-            <motion.div className="profile"
-                initial={{opacity: 0, y: 50}}
+            <div className="profile">
+                <motion.div className="row1" initial={{opacity: 0, y: 50}}
                 animate={{opacity: 1, y: 0}}
                 transition={{
                     delay:0.05,
                     duration: 0.4,
                     ease: "easeOut"
-                }}
-            >
-                <div className="row1">
+                }}>
                     <img src="https://avatars.githubusercontent.com/u/211940501?v=4" alt="github logo of hunixcode" className="photo" style={{width: "200px",
                     borderRadius: "5px"}}/>
                     <p className="photo" style={{maxWidth:"500px",fontFamily:"JetBrains mono"}}>
@@ -24,10 +24,15 @@ export default function Profile(){
                         I am willing to specialize in CyberSecurity but I have experience in web development. <br/><br/>
                         I build stuff, from simple programming projects to advanced SOC home labs, I simply never stop learning.
                     </p>
-                </div>
+                </motion.div>
                 <Socials/>
-                <GithubStats/>
-            </motion.div>
+                <Quote/>
+                <div style={{display:"flex",width:"100%",gap:"1rem"}}>
+                    <GithubStats/>
+                    <FeaturedProject/>
+                </div>
+            </div>
         </section>
     )
 }
+

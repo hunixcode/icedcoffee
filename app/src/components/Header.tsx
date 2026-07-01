@@ -2,7 +2,12 @@ import './styles/Header.css'
 import ScrambledText from './ScrambledText'
 import * as motion from 'motion/react-client'
 
+import Hamburger from 'hamburger-react'
+import { useState } from 'react'
+import MobileMenu from './MobileMenu'
+
 export default function Header(){
+    const [isOpen, setOpen] = useState(false);
     return (
         <motion.div
             initial={{y: 50, opacity: 0}}
@@ -21,7 +26,11 @@ export default function Header(){
                     <a href="/projects">PROJECTS</a>
                     <a href="/contact">GET IN TOUCH</a>
                 </div>
+                <div className="hamburger">
+                    <Hamburger toggled={isOpen} toggle={setOpen} size={20}/>
+                </div>
             </section>
+            {isOpen && <MobileMenu setOpen={setOpen} />}
         </motion.div>
     )
 }

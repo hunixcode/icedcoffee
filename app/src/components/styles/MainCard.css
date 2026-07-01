@@ -3,7 +3,7 @@
 .canva {
     display: flex;
     flex-direction: column;
-    max-width: 550px;
+    max-width: 650px;
     gap: 1rem;
 }
 

@@ -1,5 +1,5 @@
 import * as motion from "motion/react-client"
-import { Github, Linkedin, Coffee, MailOpen } from "@boxicons/react"
+import { Github, Linkedin, Coffee, MailOpen, SwordAlt } from "@boxicons/react"
 
 import './styles/Socials.css'
 
@@ -19,12 +19,14 @@ export default function Socials(){
                 className="list"
             >
                 <div className="icons">
-                    <a href="https://github.com/hunixcode" target="_blank"><Github pack="basic" size="md"/></a>
-                    <a href="https://linkedin.com/hauani" target="_blank"><Linkedin pack="basic" size="md"/></a>
-                    <a href="https://buymeacoffee.com/hauani" target="_blank"><Coffee pack="basic" size="md"/></a>
-                    <a href="/resume-fr.pdf" target="_blank"><MailOpen pack="basic" size="md"/></a>
+                    <a href="https://github.com/hunixcode" target="_blank"><Github pack="basic" size="md" className="boxic"/></a>
+                    <a href="https://linkedin.com/hauani" target="_blank"><Linkedin pack="basic" size="md" className="boxic"/></a>
+                    <a href="https://buymeacoffee.com/hauani" target="_blank"><Coffee pack="basic" size="md" className="boxic"/></a>
+                    <a href="https://tryhackme.com/p/hunixcode" target="_blank"><SwordAlt pack="basic" size="md" className="boxic"/></a>
+                    <a href="/resume-fr.pdf" target="_blank"><MailOpen pack="basic" size="md" className="boxic"/></a>
                 </div>
-                <button className="donate">Buy Me A Coffee</button>
+                <button className="donate" onClick={() => window
+            .open("https://buymeacoffee.com/hauani", "_blank", "noopener,noreferrer")}>Buy Me A Coffee</button>
             </motion.div>
         </div>
     )

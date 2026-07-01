@@ -3,6 +3,7 @@
 .container {
     display: flex;
     justify-content: center;
+    padding: 0 3rem;
 }
 
 .header {
@@ -25,5 +26,21 @@
     gap: 2rem;
     a {
         color:rgb(61, 61, 61);
+    }
+}
+.hamburger {
+    display: none;
+}
+
+@media (max-width: 700px){
+    .header {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .links {
+        display: none;
+    }
+    .hamburger {
+        display: block;
     }
 }
