@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+main {
+    padding-bottom: 80px;
+}
+
+.boxic {
+    width: 28px;
+    height: 28px;
+}
+
+@media (max-width: 700px){
+    .canva {
+        margin-top: 100px;
+    }
+    .profile .coffee {
+        display: none;
+    }
+    .socials {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    .list {
+        width: 100%;
+        gap: 1rem;
+    }
+    .icons {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    .row1 {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .boxic {
+        width: 35px;
+        height: 35px;
+    }
+    .donate {
+        height: 30px;
+        padding: 1rem;
+    }
+    .stats-row {
+        flex-direction: column;
+    }
+}

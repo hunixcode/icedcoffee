@@ -1,0 +1,18 @@
+.github-stats {
+    font-family: "Archivo", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    box-shadow: 0 0 10px rgb(185, 185, 185);
+    padding: 1rem;
+    border-radius: 10px;
+    gap: 1rem;
+    min-width: 180px;
+}
+
+@media (max-width: 700px){
+    .github-stats {
+        min-width: unset;
+        width: 100%;
+    }
+}
