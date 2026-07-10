@@ -4,6 +4,7 @@ import Socials from '../components/Socials'
 import GithubStats from '../components/GithubStats'
 import FeaturedProject from '../components/FeaturedProject'
 import Quote from '../components/Quote'
+import BuyIt from '../components/BuyIt'
 
 export default function Profile(){
     return (
@@ -31,6 +32,7 @@ export default function Profile(){
                     <GithubStats/>
                     <FeaturedProject/>
                 </div>
+                <BuyIt/>
             </div>
         </section>
     )

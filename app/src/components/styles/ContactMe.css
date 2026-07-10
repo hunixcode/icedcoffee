@@ -1,7 +1,6 @@
 .contact-me {
-    margin-top:10px;
     display: flex;
-    box-shadow: 0 0 10px rgb(155, 155, 155);
+    box-shadow: 0 0 10px rgb(185, 185, 185);
     padding: 1rem;
     justify-content: baseline;
     gap: 3rem;

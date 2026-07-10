@@ -3,7 +3,7 @@
     font-family: "JetBrains mono", monospace;
     font-size: 12px;
     position: fixed;
-    box-shadow: 0 0 20px rgb(206, 206, 206);
+    box-shadow: 0 0 10px rgb(185, 185, 185);
     display: flex;
     align-items: center;
     justify-content: center;
