@@ -1,5 +1,5 @@
 import * as motion from 'motion/react-client'
-import './styles/BuyIt.css'
+import './BuyIt.css'
 
 
 export default function BuyIt(){

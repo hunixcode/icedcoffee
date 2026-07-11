@@ -1,11 +1,11 @@
-import './styles/Header.css'
-import ScrambledText from './ScrambledText'
+import './Header.css'
+import ScrambledText from '../ScrambledText'
 import * as motion from 'motion/react-client'
 
 import Hamburger from 'hamburger-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import MobileMenu from './MobileMenu'
+import MobileMenu from '../MobileMenu/MobileMenu'
 
 export default function Header(){
     const [isOpen, setOpen] = useState(false);

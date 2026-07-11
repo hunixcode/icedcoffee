@@ -1,7 +1,7 @@
 import * as motion from "motion/react-client"
 import { Github, Linkedin, Coffee, MailOpen, SwordAlt } from "@boxicons/react"
 
-import './styles/Socials.css'
+import './Socials.css'
 
 export default function Socials(){
     const base = import.meta.env.BASE_URL;

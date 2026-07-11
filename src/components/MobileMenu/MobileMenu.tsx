@@ -1,7 +1,7 @@
 import * as motion from "motion/react-client"
 import Hamburger from 'hamburger-react'
 import { Link } from 'react-router-dom'
-import "./styles/MobileMenu.css"
+import "./MobileMenu.css"
 
 export default function MobileMenu({ setOpen }: { setOpen: (open: boolean) => void }){
     return (

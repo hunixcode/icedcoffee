@@ -1,5 +1,5 @@
 import * as motion from "motion/react-client"
-import './styles/ContactMe.css'
+import './ContactMe.css'
 import { Link } from "react-router-dom"
 
 

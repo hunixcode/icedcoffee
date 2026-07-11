@@ -3,7 +3,7 @@ import { Folder, User } from "@boxicons/react"
 import * as motion from "motion/react-client"
 import { OrbitProgress } from "react-loading-indicators";
 
-import './styles/GithubStats.css'
+import './GithubStats.css'
 
 
 

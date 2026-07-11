@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import * as motion from 'motion/react-client'
 
 import LoadingScreen from "../components/LoadingScreen"
-import Socials from "../components/Socials";
-import ContactMe from "../components/ContactMe";
+import Socials from "../components/Socials/Socials";
+import ContactMe from "../components/ContactMe/ContactMe";
+import BuyIt from "../components/BuyIt/BuyIt";
 
 import './styles/Home.css'
 
@@ -39,6 +40,7 @@ export default function Hero(){
                         </p>
                     </motion.div>
                     {isOpen && <ContactMe setOpen={setOpen} />}
+                    <BuyIt/>
                 </div>
             </div>
         )

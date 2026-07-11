@@ -1,10 +1,10 @@
 import './styles/Profile.css'
 import * as motion from 'motion/react-client'
-import Socials from '../components/Socials'
-import GithubStats from '../components/GithubStats'
-import FeaturedProject from '../components/FeaturedProject'
+import Socials from '../components/Socials/Socials'
+import GithubStats from '../components/GithubStats/GithubStats'
+import FeaturedProject from '../components/FeaturedProject/FeaturedProject'
 import Quote from '../components/Quote'
-import BuyIt from '../components/BuyIt'
+import BuyIt from '../components/BuyIt/BuyIt'
 
 export default function Profile(){
     return (
