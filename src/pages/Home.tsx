@@ -8,9 +8,9 @@ import BuyIt from "../components/BuyIt/BuyIt";
 
 import './styles/Home.css'
 
+
 export default function Hero(){
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         const timer = setTimeout(() => {
         setLoading(false);
@@ -18,7 +18,6 @@ export default function Hero(){
 
         return () => clearTimeout(timer);
     }, []);
-
     const [isOpen, setOpen] = useState(true);
         return loading ? <LoadingScreen/> : (
             <div className="hero">

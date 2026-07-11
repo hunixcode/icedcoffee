@@ -1,5 +1,7 @@
-import './Footer.css'
 import { Copyright } from '@boxicons/react'
+
+import './Footer.css'
+
 
 export default function Footer(){
     return (

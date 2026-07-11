@@ -1,6 +1,7 @@
+import * as motion from "motion/react-client"
+
 import { useEffect, useState } from "react";
 import { Folder, User } from "@boxicons/react"
-import * as motion from "motion/react-client"
 import { OrbitProgress } from "react-loading-indicators";
 
 import './GithubStats.css'

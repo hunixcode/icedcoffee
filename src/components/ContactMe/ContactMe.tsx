@@ -1,6 +1,8 @@
 import * as motion from "motion/react-client"
-import './ContactMe.css'
+
 import { Link } from "react-router-dom"
+
+import './ContactMe.css'
 
 
 export default function ContactMe({ setOpen }: { setOpen: (open: boolean) => void }){

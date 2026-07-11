@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+
 import "./FeaturedProject.css"
 
 export default function FeaturedProject(){
