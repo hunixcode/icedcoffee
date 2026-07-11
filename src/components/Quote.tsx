@@ -19,19 +19,22 @@ export default function Quote(){
             duration: 0.4,
             ease:"easeOut"
         }}>
-            <p>"{quote.q}"</p>
+            <p>"{quote.text}"</p>
         </motion.div>
     )
 }
 
 function useQuoteData() {
   const [quoteData, setQuoteData] = useState<any>(null);
+  const pick = () => Math.floor(Math.random() * 10);
 
   useEffect(() => {
-    fetch("https://zenquotes.io/api/random")
+    fetch("https://thequoteshub.com/api/tags/computer%20science?page=1&page_size=20&format=json")
       .then((res) => res.json())
-      .then((data) => setQuoteData(data))
+      .then((data) => setQuoteData(data.quotes[pick()]))
   }, []);
+
+  console.log(quoteData)
 
   return quoteData;
 }
