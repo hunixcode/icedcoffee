@@ -19,7 +19,7 @@ export default function Quote(){
             duration: 0.4,
             ease:"easeOut"
         }}>
-            <p>"{quote.quote}"</p>
+            <p>"{quote.q}"</p>
         </motion.div>
     )
 }
@@ -28,7 +28,7 @@ function useQuoteData() {
   const [quoteData, setQuoteData] = useState<any>(null);
 
   useEffect(() => {
-    fetch("https://dummyjson.com/quotes/random")
+    fetch("https://zenquotes.io/api/random")
       .then((res) => res.json())
       .then((data) => setQuoteData(data))
   }, []);
