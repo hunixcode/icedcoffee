@@ -1,8 +1,8 @@
 <div align="center">
     <img src="./assets/badge.png" height="200">
     <h1>Iced Coffee</h1>
-    <p>My personal portfolio hand-made using React x Vite
-        </br>Feel free to contribute if you'd feel like putting your footprint
+    <p>My hand-made personal portfolio made with React x Vite
+        </br>Feel free to contribute if you feel like putting your footprint
         </br>somewhere on github
     </p>
     <img src="https://img.shields.io/github/repo-size/hunixcode/icedcoffee" />
@@ -12,8 +12,8 @@
 # Overview
 
 Why am I uploading my portfolio's source code publicly ?
-My goal here is to showcase my Web Development skills, feel free
-to open any issue if you find something I could potentialy work on.
+This is basically a way for me to showcase my web development skills and how I manage a ReactJS project
+feel free to open any issue if you find something I could potentialy work on.
 
 ## Quickstart
 

@@ -1,6 +1,6 @@
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-import MainLayout from './Layout'
+import MainLayout from './layout'
 
 import {Routes, Route} from 'react-router-dom'
 
