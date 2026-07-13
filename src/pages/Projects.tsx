@@ -9,7 +9,7 @@ import './styles/Projects.css'
 
 export default function Projects() {
     const [isOpen, setOpen] = useState(true);
-    return (
+    return (        
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -20,9 +20,16 @@ export default function Projects() {
             }}
             className="projects-page"
         >
-            <ProjectGrid />
-            <BuyIt/>
-            {isOpen && <ContactMe setOpen={setOpen} />}
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "650px",
+                gap: "2rem"
+            }}>
+                <ProjectGrid />
+                <BuyIt/>
+                {isOpen && <ContactMe setOpen={setOpen} />}
+            </div>
         </motion.div>
     )
 }

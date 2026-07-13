@@ -77,7 +77,8 @@ export default function ProjectGrid() {
                                 }))
                                 : []
                         });
-                    }
+                    }    const [loading, setLoading] = useState(true);
+
                 } catch {
                     if (!cancelled) {
                         data.set(project.slug, {
