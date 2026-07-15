@@ -186,10 +186,21 @@
     .blog-post-footer {
         flex-wrap: wrap;
         padding: 0.75rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .blog-post-stars {
+        font-size: 12px;
     }
 
     .blog-post-link {
         font-size: 11px;
         padding: 0.4rem 0.75rem;
+        margin-left: 0;
+    }
+
+    .contributor-avatar {
+        width: 22px;
+        height: 22px;
     }
 }

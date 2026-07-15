@@ -20,12 +20,7 @@ export default function Projects() {
             }}
             className="projects-page"
         >
-            <div style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "650px",
-                gap: "2rem"
-            }}>
+            <div className="projects-container">
                 <ProjectGrid />
                 <BuyIt/>
                 {isOpen && <ContactMe setOpen={setOpen} />}

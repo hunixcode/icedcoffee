@@ -45,3 +45,30 @@
     color: black;
     border: solid 1px rgb(160, 160, 160);
 }
+
+@media (max-width: 700px) {
+    .buy-it {
+        flex-direction: column;
+        max-height: none;
+        align-items: center;
+    }
+
+    .img {
+        width: 80%;
+        max-width: 250px;
+    }
+
+    .buy-it-form {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .buy-it p {
+        font-size: 16px;
+    }
+
+    .buy-it-form button {
+        width: 100%;
+        padding: 0.75rem;
+    }
+}

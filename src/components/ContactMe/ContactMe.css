@@ -38,6 +38,22 @@
 
 @media (max-width:700px){
     .contact-me {
-        gap:1rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .contact-me img {
+        width: 60px;
+        height: auto;
+    }
+
+    .contact {
+        align-items: center;
+    }
+
+    .join {
+        width: 100%;
+        padding: 0.75rem;
     }
 }
