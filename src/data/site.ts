@@ -12,6 +12,8 @@ export const site = {
   avatar: `https://github.com/${GITHUB_USER}.png`,
   avatarAlt: "hunixcode avatar",
   email: "hunixcode@proton.me",
+  contactEmail: "dylan.peterano@pm.me",
+  phone: "+68987752421",
 } as const;
 
 export const socials = [
@@ -21,11 +23,10 @@ export const socials = [
   { label: "buy me a coffee", href: `https://buymeacoffee.com/${GITHUB_USER}` },
 ] as const;
 
-export type SectionId = "home" | "work" | "ai-dd" | "contact";
+export type SectionId = "home" | "work" | "ai-dd";
 
 export const sections: { id: SectionId; label: string }[] = [
   { id: "home", label: "home" },
   { id: "work", label: "what do i do" },
   { id: "ai-dd", label: "ai-dd" },
-  { id: "contact", label: "contact" },
 ];

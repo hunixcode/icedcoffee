@@ -10,10 +10,11 @@ interface MenuProps {
   open: boolean;
   active: SectionId;
   onNavigate: (id: SectionId) => void;
+  onOpenContact?: () => void;
   onClose: () => void;
 }
 
-export default function Menu({ open, active, onNavigate, onClose }: MenuProps) {
+export default function Menu({ open, active, onNavigate, onOpenContact, onClose }: MenuProps) {
   useBodyLock(open);
 
   useEffect(() => {
@@ -60,6 +61,25 @@ export default function Menu({ open, active, onNavigate, onClose }: MenuProps) {
                   </button>
                 </motion.li>
               ))}
+
+              <motion.li
+                key="contact-page"
+                initial={{ opacity: 0, y: 34 }}
+                animate={{ opacity: 1, y: 0, transition: { ...spring.bouncy, delay: 0.08 + sections.length * 0.06 } }}
+                exit={{ opacity: 0, y: 14, transition: smooth(0.18) }}
+              >
+                <button
+                  type="button"
+                  className="menu__link t-condensed"
+                  onClick={() => {
+                    onClose();
+                    onOpenContact?.();
+                  }}
+                >
+                  <span className="menu__index t-mono">0{sections.length + 1}</span>
+                  contact
+                </button>
+              </motion.li>
             </ul>
 
             <motion.div

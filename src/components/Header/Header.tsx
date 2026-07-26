@@ -7,7 +7,11 @@ import { pressable, smooth } from "../../lib/motion";
 import Menu from "../Menu/Menu";
 import "./Header.css";
 
-export default function Header() {
+interface HeaderProps {
+  onOpenContact?: () => void;
+}
+
+export default function Header({ onOpenContact }: HeaderProps) {
   const [open, setOpen] = useState(false);
 
   const ids = useMemo(() => sections.map((s) => s.id), []);
@@ -80,7 +84,7 @@ export default function Header() {
         </div>
       </motion.header>
 
-      <Menu open={open} active={active} onNavigate={goTo} onClose={() => setOpen(false)} />
+      <Menu open={open} active={active} onNavigate={goTo} onOpenContact={onOpenContact} onClose={() => setOpen(false)} />
     </>
   );
 }
