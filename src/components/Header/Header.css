@@ -4,7 +4,7 @@
 .header {
   position: fixed;
   inset: 0 0 auto 0;
-  z-index: 90;
+  z-index: 110;
   height: var(--header-h);
   display: flex;
   align-items: center;
