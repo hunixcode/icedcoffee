@@ -1,39 +1,86 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import * as motion from 'motion/react-client'
+import { useCallback, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { sections, site } from "../../data/site";
+import type { SectionId } from "../../data/site";
+import { useActiveSection } from "../../hooks/useActiveSection";
+import { pressable, smooth } from "../../lib/motion";
+import Menu from "../Menu/Menu";
+import "./Header.css";
 
-import Hamburger from 'hamburger-react'
-import ScrambledText from '../ScrambledText'
-import MobileMenu from '../MobileMenu/MobileMenu'
+export default function Header() {
+  const [open, setOpen] = useState(false);
 
-import './Header.css'
+  const ids = useMemo(() => sections.map((s) => s.id), []);
+  const active = useActiveSection(ids, "home");
+  const activeLabel = sections.find((s) => s.id === active)?.label ?? "home";
 
+  const goTo = useCallback((id: SectionId) => {
+    setOpen(false);
+    const target = document.getElementById(id);
+    if (!target) return;
 
-export default function Header(){
-    const [isOpen, setOpen] = useState(false);
-    return (
-        <motion.div
-            initial={{y: 50, opacity: 0}}
-            animate={{y: 0, opacity: 1}}
-            transition={{
-                duration: 0.4,
-                ease: "easeOut"
+    window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.history.replaceState(null, "", `#${id}`);
+    });
+  }, []);
+
+  return (
+    <>
+      <motion.header
+        className="header"
+        initial={{ opacity: 0, y: -14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={smooth(0.6, 0.05)}
+      >
+        <div className="header__inner shell">
+          <motion.a
+            className="header__logo t-display"
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              goTo("home");
             }}
-            className='container'
-        >
-            <section className="header">
-                <ScrambledText>hunix</ScrambledText>
-                <div className="links">
-                    <Link to="/">HOME</Link>
-                    <Link to="/profile">PROFILE</Link>
-                    <Link to="/projects">PROJECTS</Link>
-                    <Link to="/contact">GET IN TOUCH</Link>
-                </div>
-                <div className="hamburger">
-                    <Hamburger toggled={isOpen} toggle={setOpen} size={20}/>
-                </div>
-            </section>
-            {isOpen && <MobileMenu setOpen={setOpen} />}
-        </motion.div>
-    )
+            aria-label={`${site.name} — back to top`}
+            {...pressable}
+          >
+            {site.logo}
+          </motion.a>
+
+          {/* `mode="wait"` so the two labels never overlap — in sync mode the
+              outgoing and incoming text stack in the same grid cell and read as
+              doubled/ghosted text. The cell's min-width keeps the layout still
+              during the gap. */}
+          <span className="header__current t-mono" aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={activeLabel}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={smooth(0.2)}
+              >
+                {activeLabel}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+
+          <button
+            type="button"
+            className={`burger${open ? " is-open" : ""}`}
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="site-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            <span className="burger__bar" />
+            <span className="burger__bar" />
+            <span className="burger__bar" />
+          </button>
+        </div>
+      </motion.header>
+
+      <Menu open={open} active={active} onNavigate={goTo} onClose={() => setOpen(false)} />
+    </>
+  );
 }

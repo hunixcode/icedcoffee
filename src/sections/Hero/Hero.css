@@ -1,0 +1,172 @@
+.hero__inner {
+  display: grid;
+  grid-template-columns: clamp(160px, 20.8vw, 300px) minmax(0, 1fr);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.4rem, 4.76vw, 4.27rem);
+}
+
+/* ---- avatar ------------------------------------------------------------- */
+
+/* Layered shadow: a tight contact shadow to seat the card on the page, a mid
+   layer for form, and a wide low-opacity layer for ambient depth. Each step
+   roughly doubles the blur and halves the alpha, which is what reads as a
+   single soft shadow rather than a grey halo. */
+.hero__avatar {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 21%;
+  overflow: hidden;
+  background: #f4f4f4;
+  box-shadow:
+    0 1px 2px rgba(17, 17, 17, 0.05),
+    0 4px 8px rgba(17, 17, 17, 0.045),
+    0 10px 20px rgba(17, 17, 17, 0.04),
+    0 22px 44px rgba(17, 17, 17, 0.05),
+    0 40px 80px rgba(17, 17, 17, 0.045);
+}
+
+.hero__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+}
+
+.hero__avatar img[data-loaded="true"] {
+  opacity: 1;
+}
+
+.hero__avatar-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: clamp(2.2rem, 6.3vw, 5.6rem);
+  color: var(--ink);
+  background: #f0f0f0;
+}
+
+/* ---- right column ------------------------------------------------------- */
+
+.hero__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: clamp(1.75rem, 4.34vw, 3.9rem);
+}
+
+.hero__sprite {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: clamp(38px, 5.18vw, 74px);
+  pointer-events: none;
+}
+
+/* Promoted to its own layer: an infinite transform loop nested inside a parent
+   that motion also transforms otherwise repaints on the main thread and
+   shimmers at the edges. The 3d translate lives inside the keyframes, since a
+   static `transform` here would be overridden by the animation anyway. */
+.hero__sprite img {
+  width: 100%;
+  height: auto;
+  animation: sprite-float 5.5s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes sprite-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0) rotate(-3deg);
+  }
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  text-transform: uppercase;
+  line-height: 0.86;
+  margin-bottom: clamp(0.35rem, 0.7vw, 0.6rem);
+}
+
+.hero__role {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-mono-md);
+  line-height: 1.24;
+  color: var(--ink);
+  margin-bottom: clamp(0.7rem, 1.47vw, 1.33rem);
+}
+
+/* ---- stack icons -------------------------------------------------------- */
+
+.hero__stack {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.53vw, 8px);
+  font-size: clamp(0.45rem, 0.78vw, 0.7rem);
+}
+
+/* Hover is driven by motion's `whileHover` (spring) — a CSS transform here
+   would be overridden by the inline transform motion keeps on the element. */
+.hero__stack li {
+  display: flex;
+  align-items: center;
+}
+
+.hero__stack img {
+  height: calc(var(--icon-size) * 1em / 16);
+  width: auto;
+}
+
+/* ---- responsive --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    gap: clamp(1.5rem, 4.5vw, 2.25rem);
+  }
+
+  .hero__avatar {
+    width: min(230px, 55vw);
+  }
+
+  .hero__content {
+    align-items: center;
+    padding-top: clamp(1.75rem, 7vw, 2.9rem);
+  }
+
+  /* `translate` is a separate property from `transform`, so the idle float
+     on the inner image cannot fight the centering here. */
+  .hero__sprite {
+    right: auto;
+    left: 50%;
+    translate: -50% 0;
+    width: clamp(42px, 9.5vw, 64px);
+  }
+
+  .hero__title {
+    font-size: clamp(2rem, 9.2vw, 3.6rem);
+  }
+
+  .hero__role {
+    align-items: center;
+    font-size: clamp(0.78rem, 2.9vw, 1.05rem);
+  }
+
+  .hero__stack {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    font-size: clamp(0.42rem, 1.7vw, 0.62rem);
+  }
+}

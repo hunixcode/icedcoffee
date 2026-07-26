@@ -1,0 +1,235 @@
+.work__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.4rem, 3.64vw, 3.2rem);
+  width: 100%;
+}
+
+/* ---- heading ------------------------------------------------------------ */
+
+.work__head {
+  width: 100%;
+  text-align: center;
+}
+
+.work__title-wrap {
+  display: block;
+}
+
+.work__title {
+  position: relative;
+  display: inline-block;
+  font-size: var(--fs-section);
+  line-height: 0.82;
+}
+
+.work__badge {
+  position: absolute;
+  top: -0.34em;
+  right: -0.62em;
+  display: grid;
+  place-items: center;
+  width: 0.46em;
+  height: 0.46em;
+  background: var(--ink);
+  border-radius: 0.11em;
+}
+
+.work__badge img {
+  width: 34%;
+  height: auto;
+}
+
+.work__sub {
+  margin-top: clamp(0.5rem, 1.12vw, 1rem);
+  font-size: var(--fs-mono-md);
+}
+
+/* ---- slide -------------------------------------------------------------- */
+
+/* Single-cell grid: the outgoing and incoming slides occupy the same cell, so
+   the stage keeps its height throughout the crossfade instead of collapsing. */
+.work__stage {
+  position: relative;
+  display: grid;
+  width: 100%;
+}
+
+.work__slide {
+  grid-area: 1 / 1;
+  display: grid;
+  grid-template-columns: clamp(190px, 22.5vw, 324px) minmax(0, 1fr);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3.43vw, 3.1rem);
+}
+
+/* The fading-out slide must not swallow clicks meant for the new one. */
+.work__slide:not(:last-child) {
+  pointer-events: none;
+}
+
+.work__visual {
+  width: 100%;
+}
+
+.work__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.work__project {
+  font-size: var(--fs-serif-md);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+}
+
+.work__desc {
+  max-width: 32ch;
+  margin-top: clamp(0.65rem, 1.4vw, 1.25rem);
+  font-size: var(--fs-mono-lg);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* ---- actions ------------------------------------------------------------ */
+
+.work__actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.55rem, 0.98vw, 0.9rem);
+  margin-top: clamp(1.05rem, 2.52vw, 2.25rem);
+}
+
+.work__download {
+  min-width: clamp(105px, 10.3vw, 148px);
+  height: clamp(40px, 3.5vw, 50px);
+  padding-inline: 1.05rem;
+  font-size: clamp(0.78rem, 1.17vw, 1.05rem);
+}
+
+.work__repo {
+  width: clamp(40px, 3.78vw, 55px);
+  height: clamp(40px, 3.78vw, 55px);
+  flex: 0 0 auto;
+}
+
+.work__repo img {
+  width: 59%;
+  height: auto;
+}
+
+/* ---- carousel nav ------------------------------------------------------- */
+
+.work__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.55rem, 0.98vw, 0.9rem);
+  width: 100%;
+}
+
+/* Scale/tap comes from motion's `pressable`; CSS only handles the colours. */
+.work__arrow {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border: 1.5px solid var(--rule);
+  border-radius: 50%;
+  color: var(--ink);
+  transition:
+    background 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+
+.work__arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.work__arrow:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.work__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.work__dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+  transition:
+    background 0.25s var(--ease),
+    width 0.42s var(--ease-back);
+}
+
+.work__dot:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.work__dot.is-active {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--ink);
+}
+
+.work__counter {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}
+
+/* Keeps the rolling digit from nudging the " / 03" as it swaps.
+   `mode="wait"` means only one digit is ever mounted, so a stable width is
+   all that is needed here. */
+.work__counter > span {
+  display: inline-block;
+  min-width: 2ch;
+  text-align: center;
+}
+
+/* ---- responsive --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .work__slide {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .work__visual {
+    width: min(300px, 74vw);
+  }
+
+  .work__details {
+    align-items: center;
+  }
+
+  .work__title {
+    font-size: clamp(2rem, 9.2vw, 3.6rem);
+  }
+
+  .work__desc {
+    max-width: 34ch;
+    font-size: clamp(0.78rem, 2.9vw, 1.05rem);
+  }
+}

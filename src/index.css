@@ -1,53 +1,240 @@
-* {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    box-sizing: border-box;
+/* ==========================================================================
+   hunixcode — design tokens & global styles
+   ========================================================================== */
+
+:root {
+  /* ---- palette ---- */
+  --bg: #ffffff;
+  --ink: #000000;
+  --ink-2: #111111;
+  --ink-3: #2b2b2b;
+  --muted: #5a5a5a;
+  --surface-dark: #262626;
+  --surface-dark-hover: #111111;
+  --rule: rgba(0, 0, 0, 0.14);
+  --ghost: rgba(0, 0, 0, 0.045);
+
+  /* ---- type families ---- */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-condensed: "Anton", "Archivo", Impact, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  --font-serif: "Playfair Display", "Times New Roman", serif;
+  --font-body: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+  /* ---- fluid type scale ----
+     Calibrated on the 1440px mockups, then uniformly descaled to 70% so the
+     composition breathes. Every ratio below is mockup-value x 0.7. */
+  --fs-hero: clamp(2.2rem, 4.9vw, 4.55rem);
+  --fs-section: clamp(2rem, 5.2vw, 4.7rem);
+  --fs-serif-lg: clamp(1.6rem, 3.36vw, 3rem);
+  --fs-serif-md: clamp(1.3rem, 2.38vw, 2.15rem);
+  --fs-mono-lg: clamp(0.88rem, 1.37vw, 1.22rem);
+  --fs-mono-md: clamp(0.8rem, 1.26vw, 1.15rem);
+  --fs-mono-sm: clamp(0.72rem, 0.85vw, 0.82rem);
+
+  /* ---- layout ---- */
+  --shell: 1008px;
+  --gutter: clamp(1.25rem, 4.2vw, 3.92rem);
+  --header-h: clamp(66px, 6.4vw, 94px);
+  /* Sections track the viewport on laptops but stop growing on tall external
+     displays — otherwise the descaled content floats in dead space. */
+  --section-h: min(100svh, 860px);
+
+  /* ---- motion ----
+     Mirrors src/lib/motion.ts so CSS transitions and JS springs feel alike. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* expo-out — smooth */
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1); /* back-out — bouncy */
 }
 
-main {
-    padding-bottom: 80px;
+/* ---- reset ------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.boxic {
-    width: 28px;
-    height: 28px;
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-h);
+  /* Reserves the scrollbar gutter permanently. Without it, locking the body
+     when the menu opens removes the scrollbar and the whole page shifts
+     sideways by its width — read as a flicker. */
+  scrollbar-gutter: stable;
 }
 
-@media (max-width: 700px){
-    .canva {
-        margin-top: 100px;
-    }
-    .profile .coffee {
-        display: none;
-    }
-    .socials {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    .list {
-        width: 100%;
-        gap: 1rem;
-    }
-    .icons {
-        gap: 0.5rem;
-        flex-wrap: wrap;
-    }
-    .row1 {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .boxic {
-        width: 35px;
-        height: 35px;
-    }
-    .donate {
-        height: 30px;
-        padding: 1rem;
-    }
-    .stats-row {
-        flex-direction: column;
-    }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ---- shared layout primitives ------------------------------------------ */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  min-height: var(--section-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: calc(var(--header-h) + 1.5rem) 3rem;
+}
+
+/* The landing gets a little more room than the rest so it still reads as a
+   full-height opener on laptops, without ballooning on a 1440p display. */
+.section.hero {
+  min-height: min(100svh, 940px);
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ---- shared type helpers ----------------------------------------------- */
+
+.t-display {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 120, "wght" 900;
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  line-height: 0.92;
+}
+
+.t-condensed {
+  font-family: var(--font-condensed);
+  font-weight: 400;
+  letter-spacing: 0.005em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.t-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* ---- shared buttons ----------------------------------------------------- */
+
+/* Buttons are motion components: lift and tap feedback come from `lift` in
+   src/lib/motion.ts, so CSS deliberately owns colour only. A `transform` here
+   could never win against the inline transform motion keeps on the element. */
+
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: #fff;
+  background: var(--surface-dark);
+  border-radius: 9px;
+  transition: background 0.25s var(--ease);
+}
+
+.btn-solid:hover {
+  background: var(--surface-dark-hover);
+}
+
+.btn-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  border-radius: 9px;
+  transition: background 0.25s var(--ease);
+}
+
+.btn-square:hover {
+  background: var(--ghost);
+}
+
+/* ---- accessibility ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
