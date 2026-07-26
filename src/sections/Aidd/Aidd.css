@@ -1,0 +1,141 @@
+.aidd {
+  overflow: hidden;
+}
+
+.aidd__left {
+  position: relative;
+  min-width: 0;
+}
+
+.aidd__watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 112%;
+  max-width: 560px;
+  height: auto;
+  translate: -50% -50%;
+  opacity: 0.055;
+  filter: grayscale(1);
+  pointer-events: none;
+  user-select: none;
+  z-index: -1;
+}
+
+.aidd__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(230px, 23.45vw, 338px);
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.4rem, 2.8vw, 2.45rem);
+}
+
+/* ---- headline ----------------------------------------------------------- */
+
+.aidd__title {
+  font-size: var(--fs-section);
+  line-height: 1.4;
+}
+
+.aidd__line {
+  display: block;
+}
+
+/* Wrapper owns the position and the pop entrance, the image owns the idle
+   pulse — two different elements, so the two transforms never collide. */
+.aidd__star-wrap {
+  display: inline-block;
+  width: 0.83em;
+  margin-left: 0.42em;
+  vertical-align: -0.08em;
+}
+
+.aidd__star {
+  width: 100%;
+  height: auto;
+  animation: star-pulse 6s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes star-pulse {
+  0%,
+  100% {
+    transform: translateZ(0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateZ(0) rotate(35deg) scale(1.07);
+  }
+}
+
+.aidd__sub {
+  margin-top: clamp(0.3rem, 0.7vw, 0.6rem);
+  font-size: var(--fs-mono-md);
+}
+
+/* ---- card --------------------------------------------------------------- */
+
+.aidd__card {
+  padding: clamp(0.9rem, 1.4vw, 1.33rem) clamp(0.78rem, 1.19vw, 1.12rem);
+  background: var(--bg);
+  border: 1.5px solid var(--ink);
+  border-radius: clamp(11px, 1.19vw, 17px);
+  box-shadow: 0 13px 30px rgba(0, 0, 0, 0.055);
+}
+
+/* Inner wrapper so the card can animate its own entrance while this element
+   staggers the paragraphs. */
+.aidd__stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.6rem, 0.88vw, 0.8rem);
+}
+
+.aidd__par {
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 0.88vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: -0.005em;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.aidd__par strong {
+  font-weight: 700;
+}
+
+/* ---- responsive --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .aidd__inner {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 1.75rem;
+  }
+
+  .aidd__head {
+    text-align: center;
+  }
+
+  .aidd__title {
+    font-size: clamp(2rem, 9.2vw, 3.6rem);
+    line-height: 1.15;
+  }
+
+  .aidd__watermark {
+    width: min(420px, 90vw);
+    max-width: none;
+    opacity: 0.045;
+  }
+
+  .aidd__card {
+    max-width: 440px;
+  }
+
+  .aidd__par {
+    font-size: clamp(0.76rem, 2.6vw, 0.9rem);
+  }
+}

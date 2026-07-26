@@ -1,20 +1,24 @@
-import {Routes, Route} from 'react-router-dom'
+import Header from "./components/Header/Header";
+import Hero from "./sections/Hero/Hero";
+import Work from "./sections/Work/Work";
+import Aidd from "./sections/Aidd/Aidd";
+import Contact from "./sections/Contact/Contact";
 
-import Home from './pages/Home'
-import Profile from './pages/Profile'
-import MainLayout from './layout'
-import Projects from './pages/Projects'
-
-
-export default function App(){
+export default function App() {
   return (
-    <Routes>
-      <Route element={<MainLayout/>}>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/projects" element={<Projects/>}/>
-      </Route>
-    </Routes>
-  )
+    <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
+
+      <Header />
+
+      <main id="main">
+        <Hero />
+        <Work />
+        <Aidd />
+        <Contact />
+      </main>
+    </>
+  );
 }
-  

@@ -1,0 +1,119 @@
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: flex;
+  align-items: stretch;
+  overflow-y: auto;
+}
+
+.menu__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.75rem, 5vh, 3.5rem);
+  width: 100%;
+  padding-block: calc(var(--header-h) + 1.4rem) 2.1rem;
+}
+
+/* ---- links -------------------------------------------------------------- */
+
+.menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.25rem, 1.1vh, 0.7rem);
+}
+
+.menu__link {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.55rem, 1.4vw, 1.22rem);
+  font-size: clamp(1.75rem, 5.25vw, 3.85rem);
+  color: var(--ink);
+  opacity: 0.35;
+  transition:
+    opacity 0.3s var(--ease),
+    transform 0.42s var(--ease-back);
+}
+
+.menu__link:hover,
+.menu__link:focus-visible,
+.menu__link.is-active {
+  opacity: 1;
+  transform: translateX(clamp(6px, 1vw, 18px));
+}
+
+.menu__index {
+  font-size: clamp(0.6rem, 0.7vw, 0.68rem);
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  transform: translateY(-0.9em);
+}
+
+.menu__link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 2px;
+  background: var(--ink);
+}
+
+/* ---- footer ------------------------------------------------------------- */
+
+.menu__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem 1.4rem;
+  padding-top: clamp(1.05rem, 3vh, 1.75rem);
+  border-top: 1px solid var(--rule);
+}
+
+.menu__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem clamp(0.75rem, 1.75vw, 1.57rem);
+  font-size: var(--fs-mono-sm);
+}
+
+.menu__socials a {
+  position: relative;
+  color: var(--muted);
+  transition: color 0.25s var(--ease);
+}
+
+.menu__socials a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+
+.menu__socials a:hover {
+  color: var(--ink);
+}
+
+.menu__socials a:hover::after {
+  transform: scaleX(1);
+}
+
+.menu__mail {
+  font-size: var(--fs-mono-sm);
+  color: var(--muted);
+  transition: color 0.25s var(--ease);
+}
+
+.menu__mail:hover {
+  color: var(--ink);
+}

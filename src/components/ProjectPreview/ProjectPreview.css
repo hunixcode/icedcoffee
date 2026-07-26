@@ -1,0 +1,105 @@
+/* Mock application window — every value is expressed in container-query units
+   so the whole composition scales as one block. */
+
+.preview {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 463 / 464;
+  border-radius: 2.6cqw;
+  overflow: hidden;
+  background: #17120e;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 16px 34px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-body);
+}
+
+.preview__shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview__chrome {
+  height: 6.5cqw;
+  background: #241c15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.preview__body {
+  padding: 5.8cqw 19.2cqw 4cqw;
+}
+
+.preview__heading {
+  font-size: 3.24cqw;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: #f6f1ea;
+}
+
+.preview__sub {
+  margin-top: 0.9cqw;
+  font-size: 2.16cqw;
+  line-height: 1.35;
+  color: #9a8d7c;
+}
+
+.preview__items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75cqw;
+  margin-top: 4.3cqw;
+}
+
+.preview__item {
+  padding: 2.4cqw 2cqw;
+  text-align: center;
+  background: #221a14;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1.7cqw;
+  transition:
+    border-color 0.35s var(--ease),
+    background 0.35s var(--ease),
+    transform 0.45s var(--ease-back);
+}
+
+.preview:hover .preview__item {
+  border-color: rgba(201, 162, 39, 0.24);
+}
+
+/* Individual hover reads as the mock app responding to the cursor. */
+.preview__item:hover {
+  background: #2a2018;
+  border-color: rgba(201, 162, 39, 0.45);
+  transform: translateY(-1.2cqw);
+}
+
+.preview__icon,
+.preview__item-title {
+  transition: color 0.35s var(--ease);
+}
+
+.preview__item:hover .preview__icon {
+  color: #e2bb3c;
+}
+
+.preview__icon {
+  width: 3cqw;
+  height: 3cqw;
+  margin: 0 auto 1.4cqw;
+  color: #c9a227;
+}
+
+.preview__item-title {
+  font-size: 2.38cqw;
+  font-weight: 700;
+  color: #f0e9df;
+}
+
+.preview__item-desc {
+  margin-top: 1.1cqw;
+  font-size: 1.73cqw;
+  line-height: 1.3;
+  color: #8d8071;
+}

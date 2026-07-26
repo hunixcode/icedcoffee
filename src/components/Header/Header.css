@@ -1,51 +1,135 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap');
-
-.container {
-    display: flex;
-    justify-content: center;
-    padding: 0 3rem;
-}
-
+/* Solid background on purpose. A translucent `backdrop-filter` on a fixed,
+   transformed element is a well-known source of repaint flicker in Chromium,
+   and it bought nothing here: every section behind it is already white. */
 .header {
-    margin-top: 20px;
-    position: fixed;
-    z-index: 100;
-    padding: 0.6rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6rem;
-    background-color: rgb(255, 255, 255);
-    border-radius: 15px;
-    box-shadow: 0 0px 10px rgb(185, 185, 185);
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 90;
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  background: var(--bg);
 }
 
-.links {
-    font-family: "Archivo", sans-serif;
-    font-weight: 600;
-    display: flex;
-    gap: 2rem;
-    a {
-        color:rgb(61, 61, 61);
-    }
-}
-.hamburger {
-    display: none;
+.header__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
 }
 
-@media (max-width: 700px){
-    .container {
-        padding: 0 1rem;
-    }
-    .header {
-        gap: 1rem;
-        width: calc(100% - 2rem);
-        left: 1rem;
-    }
-    .links {
-        display: none;
-    }
-    .hamburger {
-        display: block;
-    }
+/* ---- logo --------------------------------------------------------------- */
+
+/* Scale/tap feedback comes from motion's `pressable`; only the tint is CSS. */
+.header__logo {
+  justify-self: start;
+  font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+  font-variation-settings: "wdth" 100, "wght" 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  transition: opacity 0.25s var(--ease);
+}
+
+.header__logo:hover {
+  opacity: 0.7;
+}
+
+/* ---- centered active-section label --------------------------------------
+   A single grid cell holds the outgoing and incoming label on top of each
+   other, so the crossfade never shifts the header layout. `min-width` is
+   sized for the longest label ("what do i do"). */
+
+.header__current {
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  min-width: 13ch;
+  font-size: clamp(0.95rem, 1.55vw, 1.4rem);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.header__current > span {
+  grid-area: 1 / 1;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+/* ---- burger ------------------------------------------------------------- */
+
+.burger {
+  justify-self: end;
+  position: relative;
+  z-index: 110;
+  width: 38px;
+  height: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 0;
+}
+
+/* `--ease-back` overshoots slightly, so the cross snaps shut with the same
+   bounce the JS springs have elsewhere. */
+.burger__bar {
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition:
+    transform 0.42s var(--ease-back),
+    opacity 0.18s var(--ease),
+    width 0.3s var(--ease-back);
+}
+
+.burger:hover .burger__bar:nth-child(2) {
+  width: 21px;
+}
+
+/* bar height (3) + gap (6) = 9px between bar centres */
+.burger.is-open .burger__bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.burger.is-open .burger__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+
+.burger.is-open .burger__bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.burger.is-open:hover .burger__bar:nth-child(2) {
+  width: 30px;
+}
+
+@media (max-width: 620px) {
+  .burger {
+    width: 32px;
+    height: 24px;
+    gap: 5px;
+  }
+
+  .burger__bar {
+    width: 26px;
+    height: 2.5px;
+  }
+
+  /* 2.5 + 5 = 7.5px between bar centres */
+  .burger.is-open .burger__bar:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+
+  .burger.is-open .burger__bar:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
+  .burger.is-open:hover .burger__bar:nth-child(2) {
+    width: 26px;
+  }
 }

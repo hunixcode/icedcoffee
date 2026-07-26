@@ -1,13 +1,20 @@
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from "react-router-dom"
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { MotionConfig } from "motion/react";
 
-import App from './App.tsx'
+import App from "./App";
+import "./index.css";
 
-import './index.css'
+const container = document.getElementById("root");
+if (!container) throw new Error('Root element "#root" was not found.');
 
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <BrowserRouter basename="/icedcoffee">
-    <App />
-  </BrowserRouter>,
-)
+createRoot(container).render(
+  <StrictMode>
+    {/* `reducedMotion="user"` disables every JS-driven transform and layout
+        animation when the OS asks for it — the CSS side is handled by the
+        prefers-reduced-motion block in index.css. */}
+    <MotionConfig reducedMotion="user">
+      <App />
+    </MotionConfig>
+  </StrictMode>,
+);

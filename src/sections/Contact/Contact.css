@@ -1,0 +1,123 @@
+.contact__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* ---- headline ----------------------------------------------------------- */
+
+.contact__head {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.contact__title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 1.75vw, 1.57rem);
+  font-size: var(--fs-serif-lg);
+  line-height: 1.1;
+}
+
+/* Wrapper owns the pop entrance, image owns the idle steam. */
+.contact__cup-wrap {
+  display: block;
+  width: 0.95em;
+  flex: 0 0 auto;
+}
+
+.contact__cup {
+  width: 100%;
+  height: auto;
+  animation: cup-steam 5s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes cup-steam {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0) rotate(-4deg);
+  }
+}
+
+/* ---- cta ---------------------------------------------------------------- */
+
+.contact__cta {
+  margin-top: clamp(1.4rem, 3.43vw, 3.1rem);
+  min-width: clamp(210px, 26.25vw, 378px);
+  min-height: clamp(48px, 5.6vw, 80px);
+  padding-inline: clamp(1.05rem, 2.1vw, 1.93rem);
+  font-size: clamp(0.9rem, 1.75vw, 1.57rem);
+  border-radius: 6px;
+}
+
+/* ---- footer ------------------------------------------------------------- */
+
+.contact__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem clamp(0.75rem, 1.75vw, 1.57rem);
+  margin-top: clamp(2.45rem, 6.3vw, 5.6rem);
+}
+
+.contact__socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem clamp(0.75rem, 1.54vw, 1.4rem);
+  font-size: var(--fs-mono-sm);
+}
+
+.contact__socials a {
+  position: relative;
+  color: var(--muted);
+  transition: color 0.25s var(--ease);
+}
+
+.contact__socials a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+
+.contact__socials a:hover {
+  color: var(--ink);
+}
+
+.contact__socials a:hover::after {
+  transform: scaleX(1);
+}
+
+.contact__copy {
+  font-size: var(--fs-mono-sm);
+  color: rgba(0, 0, 0, 0.35);
+}
+
+@media (max-width: 620px) {
+  .contact__title {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact__cup-wrap {
+    width: 0.72em;
+  }
+}

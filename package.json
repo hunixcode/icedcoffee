@@ -1,28 +1,23 @@
 {
   "name": "hunixcode",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "homepage": "https://hunixcode.github.io/icedcoffee",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "dev": "vite",
     "start": "vite",
     "build": "tsc -b && vite build",
     "postbuild": "cp dist/index.html dist/404.html",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@boxicons/react": "^1.0.3",
-    "gsap": "^3.15.0",
-    "hamburger-react": "^2.5.2",
     "motion": "^12.42.2",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "react-loading-indicators": "^1.0.1",
-    "react-router-dom": "^7.18.1",
-    "three": "^0.185.0"
+    "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
