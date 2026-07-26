@@ -41,3 +41,16 @@ Accessible through navbar :
 - Full Profile (resume-like profile)
 - All Projects (linked to github)
 - Contact Form
+
+## Design
+
+<div align="center">
+    <img src="./designs/1-Landing-Page.png" width="700">
+    <p><em>Landing Page</em></p>
+    <img src="./designs/2-Projects.png" width="700">
+    <p><em>Projects</em></p>
+    <img src="./designs/3-AIDD.png" width="700">
+    <p><em>AI-Driven Development</em></p>
+    <img src="./designs/4-Contact.png" width="700">
+    <p><em>Contact</em></p>
+</div>
