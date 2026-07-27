@@ -9,14 +9,15 @@ import "./Header.css";
 
 interface HeaderProps {
   onOpenContact?: () => void;
+  label?: string;
 }
 
-export default function Header({ onOpenContact }: HeaderProps) {
+export default function Header({ onOpenContact, label }: HeaderProps) {
   const [open, setOpen] = useState(false);
 
   const ids = useMemo(() => sections.map((s) => s.id), []);
   const active = useActiveSection(ids, "home");
-  const activeLabel = sections.find((s) => s.id === active)?.label ?? "home";
+  const activeLabel = label ?? sections.find((s) => s.id === active)?.label ?? "home";
 
   const goTo = useCallback((id: SectionId) => {
     setOpen(false);

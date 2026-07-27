@@ -23,7 +23,7 @@ export default function ContactPage({ onClose }: ContactPageProps) {
 
   return (
     <>
-      <Header />
+      <Header label="contact" />
       <div className="contact-page">
         <div className="contact-page__inner shell">
           <motion.div
