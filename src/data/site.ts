@@ -11,16 +11,16 @@ export const site = {
   role: ["full-stack developer", "cybersecurity enthusiast"],
   avatar: `https://github.com/${GITHUB_USER}.png`,
   avatarAlt: "hunixcode avatar",
-  email: "hunixcode@proton.me",
+  email: "hunix443@proton.me",
   contactEmail: "dylan.peterano@pm.me",
   phone: "+68987752421",
 } as const;
 
 export const socials = [
   { label: "github", href: `https://github.com/${GITHUB_USER}` },
-  { label: "linkedin", href: `https://www.linkedin.com/in/${GITHUB_USER}` },
+  { label: "linkedin", href: `https://www.linkedin.com/in/hauani` },
   { label: "tryhackme", href: `https://tryhackme.com/p/${GITHUB_USER}` },
-  { label: "buy me a coffee", href: `https://buymeacoffee.com/${GITHUB_USER}` },
+  { label: "buy me a coffee", href: `https://buymeacoffee.com/hauani` },
 ] as const;
 
 export type SectionId = "home" | "work" | "ai-dd";
