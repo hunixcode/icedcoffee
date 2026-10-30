@@ -40,6 +40,7 @@ Sections :
 Accessible through navbar :
 - Full Profile (resume-like profile)
 - All Projects (linked to github)
+- Downloads (latest GitHub releases, snapshotted at build time — `npm run releases` to refresh)
 - Contact Form
 
 ## Design

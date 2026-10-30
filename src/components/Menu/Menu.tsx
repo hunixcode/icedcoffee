@@ -98,8 +98,8 @@ export default function Menu({ open, active, onNavigate, onOpenContact, onClose 
                 ))}
               </ul>
 
-              <a className="menu__mail t-mono" href={`mailto:${site.email}`}>
-                {site.email}
+              <a className="menu__mail t-mono" href={`mailto:${site.contactEmail}`}>
+                {site.contactEmail}
               </a>
             </motion.div>
           </nav>
