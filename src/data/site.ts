@@ -11,7 +11,6 @@ export const site = {
   role: ["full-stack developer", "cybersecurity enthusiast"],
   avatar: `https://github.com/${GITHUB_USER}.png`,
   avatarAlt: "hunixcode avatar",
-  email: "hunix443@proton.me",
   contactEmail: "dylan.peterano@pm.me",
   phone: "+68987752421",
 } as const;
