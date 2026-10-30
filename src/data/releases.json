@@ -1,0 +1,51 @@
+{
+  "mocha": {
+    "tag_name": "v2.0",
+    "published_at": "2026-07-24T04:45:00Z",
+    "html_url": "https://github.com/hunixcode/mocha/releases/tag/v2.0",
+    "assets": [
+      {
+        "name": "Linux-Mocha-2.0.0-1.x86_64.rpm",
+        "size": 1659891,
+        "browser_download_url": "https://github.com/hunixcode/mocha/releases/download/v2.0/Linux-Mocha-2.0.0-1.x86_64.rpm"
+      },
+      {
+        "name": "Linux-Mocha_2.0.0_amd64.AppImage",
+        "size": 76425720,
+        "browser_download_url": "https://github.com/hunixcode/mocha/releases/download/v2.0/Linux-Mocha_2.0.0_amd64.AppImage"
+      },
+      {
+        "name": "Linux-Mocha_2.0.0_amd64.deb",
+        "size": 1659526,
+        "browser_download_url": "https://github.com/hunixcode/mocha/releases/download/v2.0/Linux-Mocha_2.0.0_amd64.deb"
+      },
+      {
+        "name": "MacOS-Mocha_2.0.0_aarch64.dmg",
+        "size": 1589983,
+        "browser_download_url": "https://github.com/hunixcode/mocha/releases/download/v2.0/MacOS-Mocha_2.0.0_aarch64.dmg"
+      },
+      {
+        "name": "MacOS-Mocha_2.0.0_x64.dmg",
+        "size": 1681923,
+        "browser_download_url": "https://github.com/hunixcode/mocha/releases/download/v2.0/MacOS-Mocha_2.0.0_x64.dmg"
+      },
+      {
+        "name": "Windows-Mocha_2.0.0_x64_en-US.msi",
+        "size": 1843200,
+        "browser_download_url": "https://github.com/hunixcode/mocha/releases/download/v2.0/Windows-Mocha_2.0.0_x64_en-US.msi"
+      }
+    ]
+  },
+  "soundtrail": {
+    "tag_name": "Version-1",
+    "published_at": "2026-10-29T22:56:24Z",
+    "html_url": "https://github.com/hunixcode/soundtrail/releases/tag/Version-1",
+    "assets": [
+      {
+        "name": "soundtrail.apk",
+        "size": 33098174,
+        "browser_download_url": "https://github.com/hunixcode/soundtrail/releases/download/Version-1/soundtrail.apk"
+      }
+    ]
+  }
+}

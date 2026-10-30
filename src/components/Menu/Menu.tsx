@@ -8,7 +8,7 @@ import "./Menu.css";
 
 interface MenuProps {
   open: boolean;
-  active: SectionId;
+  active: SectionId | "contact";
   onNavigate: (id: SectionId) => void;
   onOpenContact?: () => void;
   onClose: () => void;
@@ -70,7 +70,7 @@ export default function Menu({ open, active, onNavigate, onOpenContact, onClose 
               >
                 <button
                   type="button"
-                  className="menu__link t-condensed"
+                  className={`menu__link t-condensed${active === "contact" ? " is-active" : ""}`}
                   onClick={() => {
                     onClose();
                     onOpenContact?.();

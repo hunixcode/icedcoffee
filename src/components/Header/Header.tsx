@@ -9,20 +9,25 @@ import "./Header.css";
 
 interface HeaderProps {
   onOpenContact?: () => void;
-  label?: string;
+  /** Set on standalone pages; the scroll-spy only applies to the home sections. */
+  page?: "contact";
 }
 
-export default function Header({ onOpenContact, label }: HeaderProps) {
+export default function Header({ onOpenContact, page }: HeaderProps) {
   const [open, setOpen] = useState(false);
 
   const ids = useMemo(() => sections.map((s) => s.id), []);
   const active = useActiveSection(ids, "home");
-  const activeLabel = label ?? sections.find((s) => s.id === active)?.label ?? "home";
+  const activeLabel = page ?? sections.find((s) => s.id === active)?.label ?? "home";
 
   const goTo = useCallback((id: SectionId) => {
     setOpen(false);
     const target = document.getElementById(id);
-    if (!target) return;
+    if (!target) {
+      // Not on the home page (e.g. contact): App swaps back on the hash change and scrolls there.
+      window.location.hash = `#${id}`;
+      return;
+    }
 
     window.requestAnimationFrame(() => {
       target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -85,7 +90,7 @@ export default function Header({ onOpenContact, label }: HeaderProps) {
         </div>
       </motion.header>
 
-      <Menu open={open} active={active} onNavigate={goTo} onOpenContact={onOpenContact} onClose={() => setOpen(false)} />
+      <Menu open={open} active={page ?? active} onNavigate={goTo} onOpenContact={onOpenContact} onClose={() => setOpen(false)} />
     </>
   );
 }

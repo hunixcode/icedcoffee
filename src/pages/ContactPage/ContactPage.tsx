@@ -23,8 +23,8 @@ export default function ContactPage({ onClose }: ContactPageProps) {
 
   return (
     <>
-      <Header label="contact" />
-      <div className="contact-page">
+      <Header page="contact" />
+      <main className="contact-page">
         <div className="contact-page__inner shell">
           <motion.div
             className="contact-page__head"
@@ -172,7 +172,7 @@ export default function ContactPage({ onClose }: ContactPageProps) {
             </motion.button>
           </motion.div>
         </div>
-      </div>
+      </main>
     </>
   );
 }
