@@ -23,10 +23,11 @@ export const socials = [
   { label: "buy me a coffee", href: `https://buymeacoffee.com/hauani` },
 ] as const;
 
-export type SectionId = "home" | "work" | "ai-dd";
+export type SectionId = "home" | "work" | "ai-dd" | "downloads";
 
 export const sections: { id: SectionId; label: string }[] = [
   { id: "home", label: "home" },
   { id: "work", label: "what do i do" },
   { id: "ai-dd", label: "ai-dd" },
+  { id: "downloads", label: "downloads" },
 ];

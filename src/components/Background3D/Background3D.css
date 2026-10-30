@@ -1,0 +1,13 @@
+/* Fixed decorative layer behind every section. Sections are transparent, so
+   z-index -1 is enough; the solid header still covers it. */
+.bg3d {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg3d canvas {
+  width: 100%;
+  height: 100%;
+}

@@ -6,7 +6,8 @@ export type GlyphName =
   | "cup"
   | "radar"
   | "arrow-left"
-  | "arrow-right";
+  | "arrow-right"
+  | "close";
 
 const PATHS: Record<GlyphName, string> = {
   key: "M15.5 8.5a3.5 3.5 0 1 0-3.5 3.5M12 12l-8 8v3h3l1-1v-2h2v-2h2l2-2",
@@ -18,6 +19,7 @@ const PATHS: Record<GlyphName, string> = {
   radar: "M12 12l6-4M12 21a9 9 0 1 1 9-9M12 17a5 5 0 1 1 5-5",
   "arrow-left": "M19 12H5m0 0l6-6m-6 6l6 6",
   "arrow-right": "M5 12h14m0 0l-6-6m6 6l-6 6",
+  close: "M6 6l12 12M18 6L6 18",
 };
 
 interface GlyphProps {
