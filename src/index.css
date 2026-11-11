@@ -36,20 +36,21 @@
      Calibrated on the 1440px mockups, then uniformly descaled to 70% so the
      composition breathes. Every ratio below is mockup-value x 0.7. */
   --fs-hero: clamp(2.2rem, 4.9vw, 4.55rem);
-  --fs-section: clamp(2rem, 5.2vw, 4.7rem);
+  --fs-section: clamp(2.2rem, 6vw, 6.4rem);
   --fs-serif-lg: clamp(1.6rem, 3.36vw, 3rem);
-  --fs-serif-md: clamp(1.3rem, 2.38vw, 2.15rem);
+  --fs-serif-md: clamp(1.4rem, 2.6vw, 2.8rem);
   --fs-mono-lg: clamp(0.88rem, 1.37vw, 1.22rem);
-  --fs-mono-md: clamp(0.8rem, 1.26vw, 1.15rem);
-  --fs-mono-sm: clamp(0.72rem, 0.85vw, 0.82rem);
+  --fs-mono-md: clamp(0.85rem, 1.15vw, 1.3rem);
+  --fs-mono-sm: clamp(0.75rem, 0.85vw, 0.92rem);
 
   /* ---- layout ---- */
-  --shell: 1008px;
-  --gutter: clamp(1.25rem, 4.2vw, 3.92rem);
+  /* Content spans the screen: only ultra-wide displays get side margins. */
+  --shell: 1600px;
+  --gutter: clamp(1rem, 5vw, 6rem);
   --header-h: clamp(66px, 6.4vw, 94px);
   /* Sections track the viewport on laptops but stop growing on tall external
      displays — otherwise the descaled content floats in dead space. */
-  --section-h: min(100svh, 860px);
+  --section-h: 100svh;
 
   /* ---- motion ----
      Mirrors src/lib/motion.ts so CSS transitions and JS springs feel alike. */
@@ -147,7 +148,14 @@ ul {
 /* The landing gets a little more room than the rest so it still reads as a
    full-height opener on laptops, without ballooning on a 1440p display. */
 .section.hero {
-  min-height: min(100svh, 940px);
+  min-height: 100svh;
+}
+
+/* Phones: tighter vertical rhythm, the header is shorter too. */
+@media (max-width: 700px) {
+  .section {
+    padding-block: calc(var(--header-h) + 1rem) 2.5rem;
+  }
 }
 
 .skip-link {
