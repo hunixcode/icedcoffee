@@ -16,7 +16,7 @@
   height: auto;
   translate: -50% -50%;
   opacity: 0.055;
-  filter: grayscale(1);
+  filter: grayscale(1) invert(1);
   pointer-events: none;
   user-select: none;
   z-index: -1;
@@ -36,7 +36,7 @@
 
 .aidd__title {
   font-size: var(--fs-section);
-  line-height: 1.4;
+  line-height: 1.08;
 }
 
 .aidd__line {
@@ -71,18 +71,16 @@
 }
 
 .aidd__sub {
-  margin-top: clamp(0.3rem, 0.7vw, 0.6rem);
+  margin-top: clamp(0.6rem, 1vw, 0.9rem);
   font-size: var(--fs-mono-md);
+  color: var(--muted);
 }
 
 /* ---- card --------------------------------------------------------------- */
 
 .aidd__card {
-  padding: clamp(0.9rem, 1.4vw, 1.33rem) clamp(0.78rem, 1.19vw, 1.12rem);
-  background: var(--bg);
-  border: 1.5px solid var(--ink);
-  border-radius: clamp(11px, 1.19vw, 17px);
-  box-shadow: 0 13px 30px rgba(0, 0, 0, 0.055);
+  padding: clamp(1.1rem, 1.8vw, 1.6rem);
+  border-radius: 1.25rem;
 }
 
 /* Inner wrapper so the card can animate its own entrance while this element
@@ -95,16 +93,17 @@
 
 .aidd__par {
   font-family: var(--font-body);
-  font-size: clamp(0.72rem, 0.88vw, 0.8rem);
+  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
   font-weight: 400;
-  line-height: 1.38;
+  line-height: 1.6;
   letter-spacing: -0.005em;
-  color: var(--ink-2);
+  color: var(--ink-3);
   text-wrap: pretty;
 }
 
 .aidd__par strong {
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 /* ---- responsive --------------------------------------------------------- */
@@ -122,7 +121,7 @@
 
   .aidd__title {
     font-size: clamp(2rem, 9.2vw, 3.6rem);
-    line-height: 1.15;
+    line-height: 1.08;
   }
 
   .aidd__watermark {

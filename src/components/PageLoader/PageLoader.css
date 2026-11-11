@@ -1,0 +1,187 @@
+/* Opening curtain: an ink panel carrying the mark, with a grey panel trailing
+   just behind it. Durations and delays mirror the timeline in PageLoader.tsx. */
+
+.page-loader {
+  --lift: cubic-bezier(0.76, 0, 0.24, 1); /* in-out — heavy start, soft landing */
+  --exit: cubic-bezier(0.64, 0, 0.78, 0); /* ease-in — things leaving */
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* ---- panels ------------------------------------------------------------- */
+
+.page-loader__panel {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  transition: transform 900ms var(--lift);
+}
+
+.page-loader__panel--back {
+  background: linear-gradient(180deg, #361b5b, #8a2d74 70%, #f08c6c);
+}
+
+.page-loader__panel--front {
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background:
+    radial-gradient(120% 70% at 50% 110%, rgba(107, 75, 255, 0.35), transparent 60%),
+    #0c0819;
+}
+
+.page-loader--leaving .page-loader__panel {
+  transform: translateY(-100%);
+}
+
+.page-loader--leaving .page-loader__panel--front {
+  transition-delay: 300ms;
+}
+
+/* Lags the front panel, so a grey band follows its edge up the screen. */
+.page-loader--leaving .page-loader__panel--back {
+  transition-delay: 390ms;
+}
+
+/* ---- mark --------------------------------------------------------------- */
+
+.page-loader__brand {
+  display: grid;
+  justify-items: stretch;
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+}
+
+/* Clips top and bottom only: the letters rise through a slot, while the tight
+   negative tracking is free to overhang sideways. */
+.page-loader__mark {
+  display: flex;
+  justify-content: center;
+  padding-block: 0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  clip-path: inset(0 -0.5em);
+}
+
+.page-loader__letter {
+  display: block;
+  transform: translateY(115%);
+}
+
+.page-loader--armed .page-loader__letter {
+  animation: page-loader-letter-in 750ms var(--ease) both;
+  animation-delay: calc(var(--i) * 90ms);
+}
+
+.page-loader--leaving .page-loader__letter {
+  animation: page-loader-letter-out 380ms var(--exit) both;
+  animation-delay: calc(var(--i) * 50ms);
+}
+
+/* ---- progress hairline -------------------------------------------------- */
+
+.page-loader__bar {
+  position: relative;
+  display: block;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.page-loader__bar::before,
+.page-loader__bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.page-loader--armed .page-loader__bar {
+  animation: page-loader-fade-in 400ms ease 250ms both;
+}
+
+/* Creeps toward — never reaches — the end while the page is still loading. */
+.page-loader--armed .page-loader__bar::before {
+  animation: page-loader-bar-creep 6s cubic-bezier(0.1, 0.7, 0.2, 1) 250ms both;
+}
+
+/* A second fill sweeps over the first, so the bar completes from wherever the
+   creep had got to without a jump. */
+.page-loader--leaving .page-loader__bar {
+  animation: page-loader-fade-out 220ms ease 240ms both;
+}
+
+.page-loader--leaving .page-loader__bar::after {
+  animation: page-loader-bar-fill 260ms var(--ease) both;
+}
+
+/* ---- misc --------------------------------------------------------------- */
+
+.page-loader__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes page-loader-letter-in {
+  from {
+    transform: translateY(115%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-loader-letter-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-115%);
+  }
+}
+
+@keyframes page-loader-bar-creep {
+  to {
+    transform: scaleX(0.82);
+  }
+}
+
+@keyframes page-loader-bar-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes page-loader-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes page-loader-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

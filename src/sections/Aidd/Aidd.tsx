@@ -40,7 +40,7 @@ export default function Aidd() {
                   className="aidd__star-wrap"
                   variants={makeEntrance("pop", 0.42)}
                 >
-                  <img className="aidd__star" src={star} alt="" aria-hidden="true" />
+                  <img className="aidd__star icon-invert" src={star} alt="" aria-hidden="true" />
                 </motion.span>
               </motion.span>
 
@@ -51,7 +51,7 @@ export default function Aidd() {
                 whileInView="show"
                 viewport={inView}
               >
-                development
+                <span className="t-accent">development</span>
               </motion.span>
             </h2>
 
@@ -64,7 +64,7 @@ export default function Aidd() {
         {/* The card animates itself; the inner wrapper only staggers the
             paragraphs and inherits the card's state — declaring a second
             whileInView here would drive the paragraphs twice. */}
-        <Reveal className="aidd__card" variant="settle" delay={0.18}>
+        <Reveal className="aidd__card glass" variant="settle" delay={0.18}>
           <motion.div className="aidd__stack" variants={stagger(0.075, 0.32)}>
             {aiddBlocks.map((block, i) => (
               <motion.p key={i} className="aidd__par" variants={entrance.fade}>

@@ -8,6 +8,10 @@ export const GITHUB_USER = "hunixcode";
 export const site = {
   name: "hunixcode",
   logo: "hx",
+  /** small line above the name in the hero */
+  eyebrow: "open source · building on github",
+  /** words travelling in the marquee bands between sections */
+  marquee: ["full-stack", "cybersecurity", "react", "open source", "java", "ai-driven"],
   role: ["full-stack developer", "cybersecurity enthusiast"],
   avatar: `https://github.com/${GITHUB_USER}.png`,
   avatarAlt: "hunixcode avatar",
@@ -27,6 +31,6 @@ export type SectionId = "home" | "work" | "ai-dd" | "downloads";
 export const sections: { id: SectionId; label: string }[] = [
   { id: "home", label: "home" },
   { id: "work", label: "what do i do" },
-  { id: "ai-dd", label: "ai-dd" },
   { id: "downloads", label: "downloads" },
+  { id: "ai-dd", label: "ai-dd" },
 ];

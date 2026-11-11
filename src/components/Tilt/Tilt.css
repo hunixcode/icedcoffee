@@ -1,0 +1,12 @@
+.tilt {
+  position: relative;
+  will-change: transform;
+}
+
+.tilt__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
