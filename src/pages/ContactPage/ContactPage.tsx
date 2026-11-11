@@ -111,7 +111,7 @@ export default function ContactPage({ onClose }: ContactPageProps) {
             </motion.form>
 
             <motion.div
-              className="contact-page__sidebar"
+              className="contact-page__sidebar glass"
               initial={{ opacity: 0, y: 34 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...spring.gentle, delay: 0.3 }}

@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: var(--bg);
+  background: var(--glow), rgba(12, 8, 25, 0.97);
   display: flex;
   align-items: stretch;
   overflow-y: auto;
@@ -59,7 +59,7 @@
   right: 0;
   bottom: 0.08em;
   height: 2px;
-  background: var(--ink);
+  background: var(--accent-text);
 }
 
 /* ---- footer ------------------------------------------------------------- */

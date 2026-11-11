@@ -17,13 +17,12 @@
   aspect-ratio: 1;
   border-radius: 21%;
   overflow: hidden;
-  background: #f4f4f4;
+  background: var(--glass);
+  border: 1px solid var(--glass-line);
   box-shadow:
-    0 1px 2px rgba(17, 17, 17, 0.05),
-    0 4px 8px rgba(17, 17, 17, 0.045),
-    0 10px 20px rgba(17, 17, 17, 0.04),
-    0 22px 44px rgba(17, 17, 17, 0.05),
-    0 40px 80px rgba(17, 17, 17, 0.045);
+    0 0 0 6px rgba(255, 255, 255, 0.03),
+    0 24px 60px rgba(5, 2, 20, 0.55),
+    0 0 90px rgba(107, 75, 255, 0.35);
 }
 
 .hero__avatar img {
@@ -45,7 +44,7 @@
   height: 100%;
   font-size: clamp(2.2rem, 6.3vw, 5.6rem);
   color: var(--ink);
-  background: #f0f0f0;
+  background: linear-gradient(160deg, #22123d, #361b5b);
 }
 
 /* ---- right column ------------------------------------------------------- */
@@ -90,9 +89,9 @@
 }
 
 .hero__title {
-  font-size: var(--fs-hero);
-  text-transform: uppercase;
-  line-height: 0.86;
+  font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+  line-height: 1;
+  white-space: nowrap;
   margin-bottom: clamp(0.35rem, 0.7vw, 0.6rem);
 }
 
@@ -100,8 +99,8 @@
   display: flex;
   flex-direction: column;
   font-size: var(--fs-mono-md);
-  line-height: 1.24;
-  color: var(--ink);
+  line-height: 1.4;
+  color: var(--ink-3);
   margin-bottom: clamp(0.7rem, 1.47vw, 1.33rem);
 }
 
@@ -109,6 +108,8 @@
 
 .hero__stack {
   display: flex;
+  margin-top: clamp(1.4rem, 2.4vw, 2rem);
+  opacity: 0.9;
   align-items: center;
   gap: clamp(4px, 0.53vw, 8px);
   font-size: clamp(0.45rem, 0.78vw, 0.7rem);
@@ -142,7 +143,8 @@
 
   .hero__content {
     align-items: center;
-    padding-top: clamp(1.75rem, 7vw, 2.9rem);
+    /* room for the sprite above the eyebrow line */
+    padding-top: clamp(3.4rem, 13vw, 4.4rem);
   }
 
   /* `translate` is a separate property from `transform`, so the idle float
@@ -155,7 +157,11 @@
   }
 
   .hero__title {
-    font-size: clamp(2rem, 9.2vw, 3.6rem);
+    font-size: clamp(2.4rem, 12vw, 4rem);
+  }
+
+  .hero__ctas {
+    justify-content: center;
   }
 
   .hero__role {
@@ -168,5 +174,70 @@
     justify-content: center;
     gap: 8px;
     font-size: clamp(0.42rem, 1.7vw, 0.62rem);
+  }
+}
+
+/* ---- interactive extras ------------------------------------------------- */
+
+.hero__tilt {
+  border-radius: 21%;
+}
+
+.hero__letter {
+  display: inline-block;
+  will-change: transform;
+}
+
+.hero__role > span {
+  min-height: 1.24em;
+}
+
+@media (max-width: 900px) {
+}
+
+/* ---- eyebrow & calls to action ----------------------------------------- */
+
+.hero__eyebrow {
+  margin-bottom: clamp(0.8rem, 1.3vw, 1.2rem);
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hero__cta {
+  gap: 0.6rem;
+  height: 48px;
+  padding-inline: 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.hero__cta img {
+  width: 18px;
+  height: 18px;
+}
+
+/* A slow violet halo breathing behind the avatar. */
+.hero__tilt::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107, 75, 255, 0.45), transparent 62%);
+  filter: blur(20px);
+  animation: hero-halo 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hero-halo {
+  50% {
+    opacity: 0.55;
+    transform: scale(1.08);
   }
 }

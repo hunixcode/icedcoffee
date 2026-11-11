@@ -4,6 +4,7 @@ import { projects } from "../../data/projects";
 import Reveal from "../../components/Reveal/Reveal";
 import Glyph from "../../components/Glyph/Glyph";
 import ProjectPreview from "../../components/ProjectPreview/ProjectPreview";
+import Tilt from "../../components/Tilt/Tilt";
 import { entrance, fade, lift, makeEntrance, pressable, smooth } from "../../lib/motion";
 import question from "../../assets/question.svg";
 import github from "../../assets/github.svg";
@@ -39,7 +40,7 @@ export default function Work() {
         <header className="work__head">
           <Reveal as="span" className="work__title-wrap">
             <h2 className="work__title t-condensed">
-              what do i do
+              what do <span className="t-accent">i do</span>
               {/* Inherits hidden -> show from the Reveal above. It must NOT
                   declare its own initial/whileInView: it would then be driven
                   both by inheritance and by its own observer, and the two
@@ -68,19 +69,21 @@ export default function Work() {
           <AnimatePresence initial={false}>
             <motion.div
               key={project.slug}
-              className="work__slide"
+              className="work__slide glass"
               initial={{ opacity: 0, x: direction * 34 }}
               animate={{ opacity: 1, x: 0, transition: smooth(0.5) }}
               exit={{ opacity: 0, x: direction * -34, transition: smooth(0.3) }}
             >
               <div className="work__visual">
-                <ProjectPreview project={project} />
+                <Tilt max={12} radius="2.6cqw">
+                  <ProjectPreview project={project} />
+                </Tilt>
               </div>
 
               <div className="work__details">
                 <h3 className="work__project t-serif-italic">{project.title}</h3>
 
-                <p className="work__desc t-mono">{project.description}</p>
+                <p className="work__desc">{project.description}</p>
 
                 <div className="work__actions">
                   {project.downloadUrl && (
@@ -103,7 +106,7 @@ export default function Work() {
                     aria-label={`${project.title} on GitHub`}
                     {...lift}
                   >
-                    <img src={github} alt="" aria-hidden="true" />
+                    <img className="icon-invert" src={github} alt="" aria-hidden="true" />
                   </motion.a>
                 </div>
               </div>

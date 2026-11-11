@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import type { CSSProperties } from "react";
 import { motion } from "motion/react";
 import Reveal from "../../components/Reveal/Reveal";
 import Glyph from "../../components/Glyph/Glyph";
 import { downloadApps } from "../../data/downloads";
 import type { DownloadApp } from "../../data/downloads";
 import releases from "../../data/releases.json";
-import { useBodyLock } from "../../hooks/useBodyLock";
-import { entrance, lift, pressable } from "../../lib/motion";
+import { entrance } from "../../lib/motion";
 import "./Downloads.css";
 
 interface Asset {
@@ -22,9 +22,18 @@ interface Release {
   assets: Asset[];
 }
 
+interface PlatformFile {
+  asset: Asset;
+  /** file name without the platform prefix */
+  file: string;
+}
+
+type PlatformGroup = [platform: string, files: PlatformFile[]];
+
 interface App {
   app: DownloadApp;
   release: Release;
+  groups: PlatformGroup[];
 }
 
 const OS_PREFIX = /^(linux|macos|windows|android)-/i;
@@ -37,14 +46,29 @@ function platformOf(name: string): [string, string] {
   return ["other", name];
 }
 
-function groupByPlatform(assets: Asset[]) {
-  const groups = new Map<string, { asset: Asset; file: string }[]>();
+function groupByPlatform(assets: Asset[]): PlatformGroup[] {
+  const groups = new Map<string, PlatformFile[]>();
   for (const asset of assets) {
     const [os, file] = platformOf(asset.name);
     groups.set(os, [...(groups.get(os) ?? []), { asset, file }]);
   }
   return [...groups];
 }
+
+/** The visitor's platform, in the same vocabulary as the asset prefixes. */
+function detectPlatform(): string {
+  const ua = navigator.userAgent;
+  if (/android/i.test(ua)) return "android";
+  if (/iphone|ipad|ipod/i.test(ua)) return "";
+  if (/windows/i.test(ua)) return "windows";
+  if (/mac/i.test(ua)) return "macos";
+  if (/linux/i.test(ua)) return "linux";
+  return "";
+}
+
+const visitorPlatform = detectPlatform();
+
+const extensionOf = (file: string) => file.slice(file.lastIndexOf(".") + 1).toLowerCase();
 
 const formatSize = (bytes: number) => `${(bytes / 1e6).toFixed(1)} MB`;
 
@@ -55,28 +79,73 @@ const formatDate = (iso: string) =>
    page never calls the GitHub API. Apps without a release or assets are hidden. */
 const apps: App[] = downloadApps.flatMap((app) => {
   const release = (releases as Record<string, Release | undefined>)[app.repo];
-  return release?.assets.length ? [{ app, release }] : [];
+  return release?.assets.length ? [{ app, release, groups: groupByPlatform(release.assets) }] : [];
 });
 
+/* One app, with its files one click away: the platform switch opens on the
+   visitor's own system when the release ships a build for it. */
+function AppCard({ app, release, groups }: App) {
+  const [platform, setPlatform] = useState(() =>
+    groups.some(([os]) => os === visitorPlatform) ? visitorPlatform : groups[0][0],
+  );
+  const files = groups.find(([os]) => os === platform)?.[1] ?? [];
+  // The list reserves room for the longest platform, so switching never resizes the card.
+  const rows = Math.max(...groups.map(([, list]) => list.length));
+
+  return (
+    <motion.li className="downloads__card glass" variants={entrance.rise}>
+      <div className="downloads__card-head">
+        <img className="downloads__logo" src={app.logo} alt="" />
+        <div>
+          <h3 className="downloads__name t-serif-italic">{app.title}</h3>
+          <a className="downloads__tag t-mono" href={release.html_url} target="_blank" rel="noopener noreferrer">
+            {release.tag_name} · {formatDate(release.published_at)}
+          </a>
+        </div>
+      </div>
+
+      <p className="downloads__desc">{app.description}</p>
+
+      <div className="downloads__platforms t-mono" role="group" aria-label={`${app.title} — platform`}>
+        {groups.map(([os]) => (
+          <button
+            key={os}
+            type="button"
+            className="downloads__platform"
+            aria-pressed={os === platform}
+            onClick={() => setPlatform(os)}
+          >
+            {os}
+          </button>
+        ))}
+      </div>
+
+      {/* Keyed by platform so the rows replay their fade when the switch flips. */}
+      <ul key={platform} className="downloads__files" style={{ "--rows": rows } as CSSProperties}>
+        {files.map(({ asset, file }) => (
+          <li key={asset.name}>
+            <a className="downloads__file t-mono" href={asset.browser_download_url} title={file}>
+              <span className="downloads__ext">{extensionOf(file)}</span>
+              <span className="downloads__file-name">{file}</span>
+              <span className="downloads__size">{formatSize(asset.size)}</span>
+              <Glyph name="download" className="downloads__arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </motion.li>
+  );
+}
+
 export default function Downloads() {
-  const [selected, setSelected] = useState<App | null>(null);
-  const dialog = useRef<HTMLDialogElement>(null);
-
-  useBodyLock(selected !== null);
-
-  // Native modal: focus trap, Esc and the blurred ::backdrop come for free.
-  useEffect(() => {
-    if (selected) dialog.current?.showModal();
-  }, [selected]);
-
-  const groups = selected ? groupByPlatform(selected.release.assets) : [];
-
   return (
     <section id="downloads" className="section downloads" aria-label="Downloads">
       <div className="shell downloads__inner">
         <header className="downloads__head">
           <Reveal as="span" className="downloads__title-wrap">
-            <h2 className="downloads__title t-condensed">downloads</h2>
+            <h2 className="downloads__title t-condensed">
+              <span className="t-accent">downloads</span>
+            </h2>
           </Reveal>
           <Reveal className="downloads__sub t-mono" as="p" variant="fade" delay={0.16}>
             latest releases, straight from github
@@ -86,81 +155,13 @@ export default function Downloads() {
         {apps.length === 0 ? (
           <p className="downloads__status t-mono">no releases yet</p>
         ) : (
-          <Reveal as="ul" className="downloads__gallery" staggerChildren={0.08}>
+          <Reveal as="ul" className="downloads__grid" staggerChildren={0.1}>
             {apps.map((entry) => (
-              <motion.li key={entry.app.repo} variants={entrance.pop}>
-                <motion.button
-                  type="button"
-                  className="downloads__tile"
-                  onClick={() => setSelected(entry)}
-                  aria-label={`${entry.app.title} — downloads`}
-                  aria-haspopup="dialog"
-                  {...pressable}
-                >
-                  <img src={entry.app.logo} alt="" />
-                </motion.button>
-              </motion.li>
+              <AppCard key={entry.app.repo} {...entry} />
             ))}
           </Reveal>
         )}
       </div>
-
-      <dialog
-        ref={dialog}
-        className="downloads__dialog"
-        aria-label={selected ? `${selected.app.title} downloads` : undefined}
-        onClose={() => setSelected(null)}
-        onClick={(e) => {
-          // The panel fills the dialog, so a click landing on the dialog itself is on the backdrop.
-          if (e.target === e.currentTarget) e.currentTarget.close();
-        }}
-      >
-        {selected && (
-          <div className="downloads__panel">
-            <button
-              type="button"
-              className="downloads__close"
-              onClick={() => dialog.current?.close()}
-              aria-label="Close"
-            >
-              <Glyph name="close" />
-            </button>
-
-            <div className="downloads__panel-head">
-              <img className="downloads__panel-logo" src={selected.app.logo} alt="" />
-              <div>
-                <h3 className="downloads__name t-serif-italic">{selected.app.title}</h3>
-                <a
-                  className="downloads__tag t-mono"
-                  href={selected.release.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {selected.release.tag_name} · {formatDate(selected.release.published_at)}
-                </a>
-              </div>
-            </div>
-
-            <p className="downloads__desc t-mono">{selected.app.description}</p>
-
-            {groups.map(([os, files]) => (
-              <div className="downloads__group" key={os}>
-                <h4 className="downloads__os t-mono">{os}</h4>
-                <ul className="downloads__assets">
-                  {files.map(({ asset, file }) => (
-                    <li key={asset.name}>
-                      <motion.a className="btn-solid downloads__asset t-mono" href={asset.browser_download_url} {...lift}>
-                        <span className="downloads__file">{file}</span>
-                        <span className="downloads__size">{formatSize(asset.size)}</span>
-                      </motion.a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-      </dialog>
     </section>
   );
 }
