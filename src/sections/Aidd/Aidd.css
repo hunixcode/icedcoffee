@@ -26,7 +26,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(230px, 23.45vw, 338px);
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 38vw, 640px);
   align-items: center;
   justify-content: center;
   gap: clamp(1.4rem, 2.8vw, 2.45rem);
@@ -93,7 +93,7 @@
 
 .aidd__par {
   font-family: var(--font-body);
-  font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+  font-size: clamp(0.85rem, 1vw, 1.1rem);
   font-weight: 400;
   line-height: 1.6;
   letter-spacing: -0.005em;
@@ -120,7 +120,7 @@
   }
 
   .aidd__title {
-    font-size: clamp(2rem, 9.2vw, 3.6rem);
+    font-size: clamp(2.4rem, 11vw, 4.5rem);
     line-height: 1.08;
   }
 
@@ -131,7 +131,7 @@
   }
 
   .aidd__card {
-    max-width: 440px;
+    max-width: 640px;
   }
 
   .aidd__par {

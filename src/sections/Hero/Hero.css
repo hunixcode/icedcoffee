@@ -1,9 +1,9 @@
 .hero__inner {
   display: grid;
-  grid-template-columns: clamp(160px, 20.8vw, 300px) minmax(0, 1fr);
+  grid-template-columns: clamp(200px, min(30vw, 62svh), 540px) minmax(0, 1fr);
   align-items: center;
   justify-content: center;
-  gap: clamp(1.4rem, 4.76vw, 4.27rem);
+  gap: clamp(1.5rem, 5vw, 6.5rem);
 }
 
 /* ---- avatar ------------------------------------------------------------- */
@@ -89,7 +89,7 @@
 }
 
 .hero__title {
-  font-size: clamp(2.6rem, 6.4vw, 5.4rem);
+  font-size: clamp(2.6rem, 8vw, 9.5rem);
   line-height: 1;
   white-space: nowrap;
   margin-bottom: clamp(0.35rem, 0.7vw, 0.6rem);
@@ -111,8 +111,8 @@
   margin-top: clamp(1.4rem, 2.4vw, 2rem);
   opacity: 0.9;
   align-items: center;
-  gap: clamp(4px, 0.53vw, 8px);
-  font-size: clamp(0.45rem, 0.78vw, 0.7rem);
+  gap: clamp(4px, 0.6vw, 12px);
+  font-size: clamp(0.5rem, 0.95vw, 1rem);
 }
 
 /* Hover is driven by motion's `whileHover` (spring) — a CSS transform here
@@ -129,7 +129,9 @@
 
 /* ---- responsive --------------------------------------------------------- */
 
-@media (max-width: 900px) {
+/* Phones and portrait tablets: one centred column that fills the height.
+   Landscape tablets keep the two columns above. */
+@media (max-width: 700px), (max-width: 1024px) and (orientation: portrait) {
   .hero__inner {
     grid-template-columns: minmax(0, 1fr);
     justify-items: center;
@@ -138,7 +140,7 @@
   }
 
   .hero__avatar {
-    width: min(230px, 55vw);
+    width: min(clamp(220px, 58vw, 420px), 40svh);
   }
 
   .hero__content {
@@ -157,7 +159,7 @@
   }
 
   .hero__title {
-    font-size: clamp(2.4rem, 12vw, 4rem);
+    font-size: clamp(2.6rem, 13vw, 6rem);
   }
 
   .hero__ctas {
@@ -166,14 +168,14 @@
 
   .hero__role {
     align-items: center;
-    font-size: clamp(0.78rem, 2.9vw, 1.05rem);
+    font-size: clamp(0.85rem, 3vw, 1.3rem);
   }
 
   .hero__stack {
     flex-wrap: wrap;
     justify-content: center;
     gap: 8px;
-    font-size: clamp(0.42rem, 1.7vw, 0.62rem);
+    font-size: clamp(0.5rem, 2vw, 0.9rem);
   }
 }
 
@@ -192,8 +194,6 @@
   min-height: 1.24em;
 }
 
-@media (max-width: 900px) {
-}
 
 /* ---- eyebrow & calls to action ----------------------------------------- */
 
@@ -209,10 +209,10 @@
 
 .hero__cta {
   gap: 0.6rem;
-  height: 48px;
-  padding-inline: 1.25rem;
+  height: clamp(46px, 3.6vw, 60px);
+  padding-inline: clamp(1.15rem, 1.6vw, 1.75rem);
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: clamp(0.95rem, 1.05vw, 1.15rem);
   font-weight: 500;
   color: #fff;
 }
@@ -239,5 +239,30 @@
   50% {
     opacity: 0.55;
     transform: scale(1.08);
+  }
+}
+
+/* Tablets: two columns, but a smaller avatar so the name keeps its room. */
+@media (min-width: 701px) and (max-width: 1024px) and (orientation: landscape) {
+  .hero__inner {
+    grid-template-columns: clamp(200px, 32vw, 320px) minmax(0, 1fr);
+  }
+
+  .hero__title {
+    font-size: clamp(2.6rem, 8.4vw, 5.5rem);
+  }
+}
+
+/* Small phones: buttons share the width evenly. */
+@media (max-width: 420px) {
+  .hero__ctas {
+    width: 100%;
+  }
+
+  .hero__cta {
+    flex: 1 1 0;
+    padding-inline: 0.8rem;
+    white-space: nowrap;
+    font-size: 0.92rem;
   }
 }

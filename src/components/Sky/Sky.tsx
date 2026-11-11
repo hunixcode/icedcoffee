@@ -76,8 +76,8 @@ export default function Sky() {
       h = Math.ceil(innerHeight / PX);
       canvas.width = w;
       canvas.height = h;
-      // Horizon at the bottom of the first screen (the hero), never taller than the hero cap.
-      horizon0 = Math.min(h, 940 / PX) * 0.9;
+      // Horizon near the bottom of the first screen (the hero is one screen tall).
+      horizon0 = h * (innerWidth < 700 ? 0.94 : 0.9);
     };
 
     const draw = (t: number) => {

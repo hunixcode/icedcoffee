@@ -33,7 +33,7 @@
 
 .contact-page__grid {
   display: grid;
-  grid-template-columns: 1fr clamp(220px, 20vw, 300px);
+  grid-template-columns: 1fr clamp(240px, 28vw, 420px);
   gap: clamp(1.4rem, 3.5vw, 3rem);
   align-items: start;
 }
