@@ -1,0 +1,58 @@
+/* Inside the gutters, like every other rule on the page. */
+.contact__body {
+  border-top: 1px solid var(--line-strong);
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.25rem, 2.2vw, 1.75rem);
+  padding-block: clamp(3rem, 7vw, 5.5rem) clamp(1rem, 3vw, 2rem);
+  text-align: center;
+}
+
+.contact__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.contact__status .dot {
+  color: var(--accent);
+}
+
+.contact__title {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: var(--fs-title);
+  line-height: 1;
+}
+
+.contact__cup {
+  width: 0.8em;
+  height: auto;
+  margin-top: -0.15em;
+}
+
+.contact__cta {
+  min-height: 50px;
+  padding-inline: 1.75rem;
+  font-size: 0.95rem;
+  border-radius: 11px;
+}
+
+.contact__mail {
+  font-size: var(--fs-mono);
+  color: var(--muted);
+}
+
+.contact__socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.75rem;
+  font-size: var(--fs-mono);
+}

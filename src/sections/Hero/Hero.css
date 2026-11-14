@@ -1,268 +1,127 @@
-.hero__inner {
+.hero {
   display: grid;
-  grid-template-columns: clamp(200px, min(30vw, 62svh), 540px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   align-items: center;
-  justify-content: center;
-  gap: clamp(1.5rem, 5vw, 6.5rem);
+  gap: clamp(2rem, 5vw, 5rem);
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + 2rem);
+  padding-bottom: 3rem;
 }
 
 /* ---- avatar ------------------------------------------------------------- */
 
-/* Layered shadow: a tight contact shadow to seat the card on the page, a mid
-   layer for form, and a wide low-opacity layer for ambient depth. Each step
-   roughly doubles the blur and halves the alpha, which is what reads as a
-   single soft shadow rather than a grey halo. */
 .hero__avatar {
-  position: relative;
+  justify-self: end;
+  width: 100%;
+  max-width: 340px;
   aspect-ratio: 1;
-  border-radius: 21%;
   overflow: hidden;
-  background: var(--glass);
-  border: 1px solid var(--glass-line);
+  border-radius: 22%;
+  background: var(--bg-soft);
   box-shadow:
-    0 0 0 6px rgba(255, 255, 255, 0.03),
-    0 24px 60px rgba(5, 2, 20, 0.55),
-    0 0 90px rgba(107, 75, 255, 0.35);
+    0 0 0 1px var(--line),
+    0 6px 0 rgba(0, 0, 0, 0.08),
+    0 24px 48px -24px rgba(0, 0, 0, 0.25);
 }
 
 .hero__avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.45s var(--ease);
-}
-
-.hero__avatar img[data-loaded="true"] {
-  opacity: 1;
 }
 
 .hero__avatar-fallback {
   display: grid;
   place-items: center;
-  width: 100%;
   height: 100%;
-  font-size: clamp(2.2rem, 6.3vw, 5.6rem);
-  color: var(--ink);
-  background: linear-gradient(160deg, #22123d, #361b5b);
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: 3.5rem;
 }
 
-/* ---- right column ------------------------------------------------------- */
+/* ---- content ------------------------------------------------------------ */
 
 .hero__content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-top: clamp(1.75rem, 4.34vw, 3.9rem);
+  min-width: 0;
 }
 
+.hero__name {
+  position: relative;
+  width: fit-content;
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: clamp(2.1rem, 4.6vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+}
+
+/* The little invader perched on the end of the name, as in the mockup. */
 .hero__sprite {
   position: absolute;
-  top: 0;
-  right: 0;
-  display: block;
-  width: clamp(38px, 5.18vw, 74px);
-  pointer-events: none;
-}
-
-/* Promoted to its own layer: an infinite transform loop nested inside a parent
-   that motion also transforms otherwise repaints on the main thread and
-   shimmers at the edges. The 3d translate lives inside the keyframes, since a
-   static `transform` here would be overridden by the animation anyway. */
-.hero__sprite img {
-  width: 100%;
+  right: -0.32em;
+  top: -0.62em;
+  width: 0.62em;
   height: auto;
-  animation: sprite-float 5.5s ease-in-out infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-@keyframes sprite-float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(0, -7px, 0) rotate(-3deg);
-  }
-}
-
-.hero__title {
-  font-size: clamp(2.6rem, 8vw, 9.5rem);
-  line-height: 1;
-  white-space: nowrap;
-  margin-bottom: clamp(0.35rem, 0.7vw, 0.6rem);
+  image-rendering: pixelated;
 }
 
 .hero__role {
-  display: flex;
-  flex-direction: column;
-  font-size: var(--fs-mono-md);
-  line-height: 1.4;
-  color: var(--ink-3);
-  margin-bottom: clamp(0.7rem, 1.47vw, 1.33rem);
+  display: grid;
+  margin-top: clamp(0.75rem, 1.4vw, 1.1rem);
+  font-size: clamp(0.9rem, 1vw, 1.05rem);
+  line-height: 1.45;
 }
-
-/* ---- stack icons -------------------------------------------------------- */
 
 .hero__stack {
   display: flex;
-  margin-top: clamp(1.4rem, 2.4vw, 2rem);
-  opacity: 0.9;
+  flex-wrap: wrap;
   align-items: center;
-  gap: clamp(4px, 0.6vw, 12px);
-  font-size: clamp(0.5rem, 0.95vw, 1rem);
-}
-
-/* Hover is driven by motion's `whileHover` (spring) — a CSS transform here
-   would be overridden by the inline transform motion keeps on the element. */
-.hero__stack li {
-  display: flex;
-  align-items: center;
+  gap: clamp(0.55rem, 1vw, 0.8rem);
+  margin-top: clamp(1.25rem, 2vw, 1.6rem);
 }
 
 .hero__stack img {
-  height: calc(var(--icon-size) * 1em / 16);
+  height: calc(var(--size) * 1px * 0.66);
   width: auto;
 }
 
-/* ---- responsive --------------------------------------------------------- */
-
-/* Phones and portrait tablets: one centred column that fills the height.
-   Landscape tablets keep the two columns above. */
-@media (max-width: 700px), (max-width: 1024px) and (orientation: portrait) {
-  .hero__inner {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    text-align: center;
-    gap: clamp(1.5rem, 4.5vw, 2.25rem);
-  }
-
-  .hero__avatar {
-    width: min(clamp(220px, 58vw, 420px), 40svh);
-  }
-
-  .hero__content {
-    align-items: center;
-    /* room for the sprite above the eyebrow line */
-    padding-top: clamp(3.4rem, 13vw, 4.4rem);
-  }
-
-  /* `translate` is a separate property from `transform`, so the idle float
-     on the inner image cannot fight the centering here. */
-  .hero__sprite {
-    right: auto;
-    left: 50%;
-    translate: -50% 0;
-    width: clamp(42px, 9.5vw, 64px);
-  }
-
-  .hero__title {
-    font-size: clamp(2.6rem, 13vw, 6rem);
-  }
-
-  .hero__ctas {
-    justify-content: center;
-  }
-
-  .hero__role {
-    align-items: center;
-    font-size: clamp(0.85rem, 3vw, 1.3rem);
-  }
-
-  .hero__stack {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    font-size: clamp(0.5rem, 2vw, 0.9rem);
-  }
-}
-
-/* ---- interactive extras ------------------------------------------------- */
-
-.hero__tilt {
-  border-radius: 21%;
-}
-
-.hero__letter {
-  display: inline-block;
-  will-change: transform;
-}
-
-.hero__role > span {
-  min-height: 1.24em;
-}
-
-
-/* ---- eyebrow & calls to action ----------------------------------------- */
-
-.hero__eyebrow {
-  margin-bottom: clamp(0.8rem, 1.3vw, 1.2rem);
-}
-
-.hero__ctas {
+.hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  margin-top: clamp(1.5rem, 2.5vw, 2.25rem);
 }
 
-.hero__cta {
-  gap: 0.6rem;
-  height: clamp(46px, 3.6vw, 60px);
-  padding-inline: clamp(1.15rem, 1.6vw, 1.75rem);
-  font-family: var(--font-body);
-  font-size: clamp(0.95rem, 1.05vw, 1.15rem);
-  font-weight: 500;
-  color: #fff;
-}
+/* ---- phones & portrait tablets ----------------------------------------- */
 
-.hero__cta img {
-  width: 18px;
-  height: 18px;
-}
+@media (max-width: 860px) {
+  .hero {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 2.5rem;
+    /* Still one full screen, so the landscape belongs to the landing alone. */
+    min-height: 100svh;
+    padding-top: calc(var(--header-h) + 2.5rem);
+    padding-bottom: 4rem;
+  }
 
-/* A slow violet halo breathing behind the avatar. */
-.hero__tilt::before {
-  content: "";
-  position: absolute;
-  inset: -18%;
-  z-index: -1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(107, 75, 255, 0.45), transparent 62%);
-  filter: blur(20px);
-  animation: hero-halo 7s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes hero-halo {
-  50% {
-    opacity: 0.55;
-    transform: scale(1.08);
+  .hero__avatar {
+    justify-self: start;
+    max-width: min(220px, 52vw);
   }
 }
 
-/* Tablets: two columns, but a smaller avatar so the name keeps its room. */
-@media (min-width: 701px) and (max-width: 1024px) and (orientation: landscape) {
-  .hero__inner {
-    grid-template-columns: clamp(200px, 32vw, 320px) minmax(0, 1fr);
+@media (max-width: 480px) {
+  .hero__actions .btn {
+    flex: 1 1 auto;
   }
 
-  .hero__title {
-    font-size: clamp(2.6rem, 8.4vw, 5.5rem);
-  }
-}
-
-/* Small phones: buttons share the width evenly. */
-@media (max-width: 420px) {
-  .hero__ctas {
-    width: 100%;
+  .hero__actions .btn--dark {
+    flex-basis: 100%;
   }
 
-  .hero__cta {
-    flex: 1 1 0;
-    padding-inline: 0.8rem;
-    white-space: nowrap;
-    font-size: 0.92rem;
+  .hero__stack img {
+    height: calc(var(--size) * 1px * 0.6);
   }
 }

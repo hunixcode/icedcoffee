@@ -25,7 +25,7 @@ export const aiddBlocks: ReactNode[] = [
   </>,
   <>
     Developers are no longer coding agents but more focused on maintaining, testing,
-    updating, veryfying and keep the app working and optimized. What we used to call
+    updating, verifying and keep the app working and optimized. What we used to call
     DevOps will now become the norm for entry-level developer roles.
   </>,
 ];

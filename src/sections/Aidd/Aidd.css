@@ -1,140 +1,58 @@
-.aidd {
-  overflow: hidden;
-}
-
-.aidd__left {
-  position: relative;
-  min-width: 0;
-}
-
-.aidd__watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 112%;
-  max-width: 560px;
-  height: auto;
-  translate: -50% -50%;
-  opacity: 0.055;
-  filter: grayscale(1) invert(1);
-  pointer-events: none;
-  user-select: none;
-  z-index: -1;
-}
-
-.aidd__inner {
-  position: relative;
-  z-index: 1;
+.aidd__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(280px, 38vw, 640px);
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1.4rem, 2.8vw, 2.45rem);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 5rem);
 }
 
-/* ---- headline ----------------------------------------------------------- */
-
-.aidd__title {
-  font-size: var(--fs-section);
-  line-height: 1.08;
+.aidd__meta {
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+  display: grid;
+  gap: 0.25rem;
+  font-size: var(--fs-mono-sm);
 }
 
-.aidd__line {
-  display: block;
+.aidd__meta li {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  padding-block: 0.55rem;
+  border-bottom: 1px solid var(--line);
 }
 
-/* Wrapper owns the position and the pop entrance, the image owns the idle
-   pulse — two different elements, so the two transforms never collide. */
-.aidd__star-wrap {
-  display: inline-block;
-  width: 0.83em;
-  margin-left: 0.42em;
-  vertical-align: -0.08em;
-}
-
-.aidd__star {
-  width: 100%;
-  height: auto;
-  animation: star-pulse 6s ease-in-out infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-@keyframes star-pulse {
-  0%,
-  100% {
-    transform: translateZ(0) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translateZ(0) rotate(35deg) scale(1.07);
-  }
-}
-
-.aidd__sub {
-  margin-top: clamp(0.6rem, 1vw, 0.9rem);
-  font-size: var(--fs-mono-md);
+.aidd__meta span {
   color: var(--muted);
 }
 
-/* ---- card --------------------------------------------------------------- */
-
+/* The bordered card of the mockup: hard ink outline, soft offset shadow. */
 .aidd__card {
-  padding: clamp(1.1rem, 1.8vw, 1.6rem);
-  border-radius: 1.25rem;
-}
-
-/* Inner wrapper so the card can animate its own entrance while this element
-   staggers the paragraphs. */
-.aidd__stack {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(0.6rem, 0.88vw, 0.8rem);
-}
-
-.aidd__par {
-  font-family: var(--font-body);
-  font-size: clamp(0.85rem, 1vw, 1.1rem);
-  font-weight: 400;
+  display: grid;
+  gap: 1em;
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  border: 2px solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 5px 5px 0 color-mix(in srgb, var(--ink) 12%, transparent);
   line-height: 1.6;
-  letter-spacing: -0.005em;
-  color: var(--ink-3);
-  text-wrap: pretty;
 }
 
-.aidd__par strong {
-  font-weight: 600;
-  color: var(--ink);
+.aidd__card p {
+  max-width: 68ch;
 }
 
-/* ---- responsive --------------------------------------------------------- */
+.aidd__card strong {
+  font-weight: 700;
+}
 
-@media (max-width: 900px) {
-  .aidd__inner {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    gap: 1.75rem;
+@media (max-width: 860px) {
+  .aidd__grid {
+    grid-template-columns: 1fr;
   }
 
-  .aidd__head {
-    text-align: center;
-  }
-
-  .aidd__title {
-    font-size: clamp(2.4rem, 11vw, 4.5rem);
-    line-height: 1.08;
-  }
-
-  .aidd__watermark {
-    width: min(420px, 90vw);
-    max-width: none;
-    opacity: 0.045;
+  .aidd__meta {
+    position: static;
   }
 
   .aidd__card {
-    max-width: 640px;
-  }
-
-  .aidd__par {
-    font-size: clamp(0.76rem, 2.6vw, 0.9rem);
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--ink) 12%, transparent);
   }
 }
