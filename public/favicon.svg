@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- "hx" monogram, drawn as strokes so it never depends on a web font -->
+  <rect width="32" height="32" rx="8" fill="#0b0b0b"/>
+  <g fill="none" stroke="#ffffff" stroke-width="3.4" stroke-linejoin="miter">
+    <path d="M7.2 6.5v18.5M7.2 16.6c0-2.6 1.8-4 4-4s3.9 1.4 3.9 4V25"/>
+    <path d="M19.6 12.6l6.4 12.4M26 12.6l-6.4 12.4"/>
+  </g>
+</svg>
