@@ -1,61 +1,46 @@
 /* ==========================================================================
    hunixcode — design tokens & global styles
+   Black on white, as in the original mockups (designs/), turning to white on
+   black as the visitor scrolls past the landing: useScrollTheme rewrites the
+   colour tokens below inline on <html>. Values here are the light state.
    ========================================================================== */
 
 :root {
-  /* ---- palette ----
-     Night at dusk: a deep violet ground, near-white ink, one violet accent.
-     Text hierarchy comes from white at decreasing opacity, never from greys. */
-  color-scheme: dark;
-  --bg: #0c0819;
-  --ink: #f4f1ff;
-  --ink-2: rgba(244, 241, 255, 0.86);
-  --ink-3: rgba(244, 241, 255, 0.7);
-  --muted: rgba(244, 241, 255, 0.55);
-  --accent: #6b4bff;
-  --accent-hover: #7a5dff;
-  --accent-soft: #a98fff;
-  --accent-text: linear-gradient(90deg, #ddd3ff, #a98fff 55%, #8466ff);
-  --surface-dark: var(--accent);
-  --surface-dark-hover: var(--accent-hover);
-  --glass: rgba(255, 255, 255, 0.045);
-  --glass-strong: rgba(255, 255, 255, 0.08);
-  --glass-line: rgba(255, 255, 255, 0.09);
-  --rule: rgba(255, 255, 255, 0.1);
-  --ghost: rgba(255, 255, 255, 0.06);
-  --glow: radial-gradient(110% 80% at 50% 100%, rgba(107, 75, 255, 0.28), transparent 65%);
+  color-scheme: light;
 
-  /* ---- type families ---- */
-  --font-display: "Bricolage Grotesque", "Geist", "Helvetica Neue", Arial, sans-serif;
-  --font-condensed: var(--font-display);
-  --font-mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
-  --font-serif: var(--font-display);
-  --font-body: "Geist", "Helvetica Neue", Arial, sans-serif;
+  /* ---- palette ---- */
+  --bg: #ffffff;
+  --bg-soft: #f6f6f5;
+  --ink: #0b0b0b;
+  --ink-2: #2e2e2e;
+  --muted: #6e6e6e;
+  --line: rgba(0, 0, 0, 0.1);
+  --line-strong: rgba(0, 0, 0, 0.85);
+  --btn-bg: #222222;
+  --btn-hover: #000000;
+  --btn-ink: #ffffff;
+  /* 0 → 1: black pictograms are inverted to stay readable at night */
+  --invert: 0;
+  --accent: #d9714f;
 
-  /* ---- fluid type scale ----
-     Calibrated on the 1440px mockups, then uniformly descaled to 70% so the
-     composition breathes. Every ratio below is mockup-value x 0.7. */
-  --fs-hero: clamp(2.2rem, 4.9vw, 4.55rem);
-  --fs-section: clamp(2.2rem, 6vw, 6.4rem);
-  --fs-serif-lg: clamp(1.6rem, 3.36vw, 3rem);
-  --fs-serif-md: clamp(1.4rem, 2.6vw, 2.8rem);
-  --fs-mono-lg: clamp(0.88rem, 1.37vw, 1.22rem);
-  --fs-mono-md: clamp(0.85rem, 1.15vw, 1.3rem);
-  --fs-mono-sm: clamp(0.75rem, 0.85vw, 0.92rem);
+  /* ---- type families ----
+     Archivo for everything that reads, JetBrains Mono for labels. */
+  --font-sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* ---- type scale ---- */
+  --fs-title: clamp(2rem, 4.2vw, 3.75rem);
+  --fs-heading: clamp(1.15rem, 1.4vw, 1.45rem);
+  --fs-body: clamp(0.94rem, 0.15vw + 0.9rem, 1rem);
+  --fs-mono: clamp(0.78rem, 0.1vw + 0.76rem, 0.84rem);
+  --fs-mono-sm: 0.74rem;
 
   /* ---- layout ---- */
-  /* Content spans the screen: only ultra-wide displays get side margins. */
-  --shell: 1600px;
-  --gutter: clamp(1rem, 5vw, 6rem);
-  --header-h: clamp(66px, 6.4vw, 94px);
-  /* Sections track the viewport on laptops but stop growing on tall external
-     displays — otherwise the descaled content floats in dead space. */
-  --section-h: 100svh;
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --header-h: 64px;
+  --radius: 14px;
 
-  /* ---- motion ----
-     Mirrors src/lib/motion.ts so CSS transitions and JS springs feel alike. */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1); /* expo-out — smooth */
-  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1); /* back-out — bouncy */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ---- reset ------------------------------------------------------------- */
@@ -72,17 +57,15 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-h);
-  /* Reserves the scrollbar gutter permanently. Without it, locking the body
-     when the menu opens removes the scrollbar and the whole page shifts
-     sideways by its width — read as a flicker. */
   scrollbar-gutter: stable;
 }
 
 body {
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-body);
-  font-synthesis-weight: none;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -117,45 +100,26 @@ ul {
 }
 
 ::selection {
-  background: var(--accent);
-  color: #fff;
+  background: var(--ink);
+  color: var(--bg);
 }
 
 :focus-visible {
   outline: 2px solid var(--ink);
-  outline-offset: 4px;
+  outline-offset: 3px;
   border-radius: 4px;
 }
 
-/* ---- shared layout primitives ------------------------------------------ */
+/* ---- layout primitives -------------------------------------------------- */
 
+/* Full width: content runs edge to edge, the gutter is the only margin. */
 .shell {
   width: 100%;
-  max-width: var(--shell);
-  margin-inline: auto;
   padding-inline: var(--gutter);
 }
 
 .section {
-  position: relative;
-  min-height: var(--section-h);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-block: calc(var(--header-h) + 1.5rem) 3rem;
-}
-
-/* The landing gets a little more room than the rest so it still reads as a
-   full-height opener on laptops, without ballooning on a 1440p display. */
-.section.hero {
-  min-height: 100svh;
-}
-
-/* Phones: tighter vertical rhythm, the header is shorter too. */
-@media (max-width: 700px) {
-  .section {
-    padding-block: calc(var(--header-h) + 1rem) 2.5rem;
-  }
+  padding-block: clamp(3.5rem, 7vw, 6rem);
 }
 
 .skip-link {
@@ -163,11 +127,11 @@ ul {
   top: -100px;
   left: 1rem;
   z-index: 200;
-  padding: 0.75rem 1.25rem;
+  padding: 0.7rem 1.1rem;
   background: var(--ink);
   color: var(--bg);
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   border-radius: 8px;
 }
 
@@ -175,21 +139,7 @@ ul {
   top: 1rem;
 }
 
-/* ---- shared type helpers ----------------------------------------------- */
-
-.t-display {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
-}
-
-.t-condensed {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
-}
+/* ---- type helpers ------------------------------------------------------- */
 
 .t-mono {
   font-family: var(--font-mono);
@@ -197,101 +147,175 @@ ul {
   letter-spacing: -0.01em;
 }
 
-.t-serif-italic {
-  font-family: var(--font-display);
-  font-weight: 600;
+/* Project and app names. */
+.t-heading {
+  font-family: var(--font-sans);
+  font-weight: 700;
   letter-spacing: -0.02em;
 }
 
-/* Gradient-filled words, for the one phrase per heading that matters. */
-.t-accent {
-  background: var(--accent-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Small round marker: used wherever a list or a label needs a lead. */
+.dot {
+  display: inline-block;
+  flex: none;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: currentColor;
 }
 
-/* Frosted card used by every panel on the page. */
-.glass {
-  background: var(--glass);
-  border: 1px solid var(--glass-line);
-  -webkit-backdrop-filter: blur(24px);
-  backdrop-filter: blur(24px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 24px 60px rgba(5, 2, 20, 0.45);
+/* ---- section head --------------------------------------------------------
+   Same structure everywhere: the title in heavy uppercase Archivo on the
+   left, a dotted caption on the right, both sitting on a single rule. */
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  padding-bottom: clamp(1rem, 1.8vw, 1.4rem);
+  border-bottom: 1px solid var(--line-strong);
 }
 
-/* Small "eyebrow" line above section titles. */
-.eyebrow {
+.section-head__caption {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 500;
+  gap: 0.6em;
+  padding-bottom: 0.3em;
+  font-size: 0.92rem;
   color: var(--muted);
 }
 
-.eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  box-shadow: 0 0 12px var(--accent);
+.section-head__caption .dot {
+  background: var(--ink);
 }
 
-/* ---- shared buttons ----------------------------------------------------- */
+.section-head__title {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: var(--fs-title);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+}
 
-/* Buttons are motion components: lift and tap feedback come from `lift` in
-   src/lib/motion.ts, so CSS deliberately owns colour only. A `transform` here
-   could never win against the inline transform motion keeps on the element. */
+.section-head__last {
+  white-space: nowrap;
+}
 
-.btn-solid {
+.section-head__badge {
+  display: inline-block;
+  width: 0.42em;
+  margin-left: 0.2em;
+  vertical-align: top;
+  rotate: 8deg;
+}
+
+.section-head__tile {
+  display: inline-grid;
+  place-items: center;
+  /* never so small on phones that the glyph turns to mush */
+  width: max(0.5em, 20px);
+  height: max(0.5em, 20px);
+  margin-left: 0.2em;
+  vertical-align: top;
+  border-radius: 0.12em;
+  background: var(--btn-bg);
+  rotate: 8deg;
+}
+
+/* White glyph: inverted with the tile, which turns light at night. */
+.section-head__tile img {
+  height: 62%;
+  width: auto;
+  filter: invert(var(--invert));
+}
+
+/* Black single-colour pictograms follow the ink. */
+.section-head__badge,
+.pictogram {
+  filter: invert(var(--invert));
+}
+
+/* ---- buttons ------------------------------------------------------------ */
+
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  font-family: var(--font-body);
-  font-weight: 500;
-  color: #fff;
-  background: var(--accent);
-  border-radius: 10px;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 10px 30px rgba(107, 75, 255, 0.35);
+  gap: 0.5rem;
+  min-height: 42px;
+  padding: 0 1.15rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  border-radius: 9px;
+  white-space: nowrap;
   transition:
-    background 0.25s var(--ease),
-    box-shadow 0.25s var(--ease);
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease),
+    color 0.2s var(--ease),
+    translate 0.2s var(--ease);
 }
 
-.btn-solid:hover {
-  background: var(--accent-hover);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.12) inset,
-    0 14px 40px rgba(107, 75, 255, 0.55);
+.btn:hover {
+  translate: 0 -1px;
 }
 
-.btn-square {
+.btn:active {
+  translate: 0 0;
+}
+
+.btn--dark {
+  background: var(--btn-bg);
+  color: var(--btn-ink);
+}
+
+.btn--dark:hover {
+  background: var(--btn-hover);
+}
+
+.btn--line {
+  border: 1px solid var(--line-strong);
+}
+
+.btn--line:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.btn--icon {
+  width: 42px;
+  padding: 0;
+}
+
+.btn--icon img {
+  width: 20px;
+  height: 20px;
+  filter: invert(var(--invert));
+  transition: filter 0.2s var(--ease);
+}
+
+/* The hover fill is the ink colour, so the icon takes the opposite. */
+.btn--line:hover img {
+  filter: invert(calc(1 - var(--invert)));
+}
+
+/* Underlined text link with an arrow, used for small outbound links. */
+.link {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--glass-strong);
-  border: 1px solid var(--glass-line);
-  border-radius: 10px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  transition: background 0.25s var(--ease);
+  align-items: baseline;
+  gap: 0.3em;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--line);
+  transition: text-decoration-color 0.2s var(--ease);
 }
 
-.btn-square:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-/* Black monochrome icons (GitHub, star...) flipped to white on the dark theme. */
-.icon-invert {
-  filter: invert(1);
+.link:hover {
+  text-decoration-color: currentColor;
 }
 
 /* ---- accessibility ------------------------------------------------------ */
@@ -308,19 +332,4 @@ ul {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-}
-
-/* ---- film grain --------------------------------------------------------- */
-
-/* A whisper of noise over everything: takes the digital edge off the flat
-   white and makes the black surfaces feel printed. Static, so it costs one
-   composited layer and no repaints. */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: 9000;
-  pointer-events: none;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }

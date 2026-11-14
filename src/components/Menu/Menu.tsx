@@ -3,25 +3,22 @@ import { AnimatePresence, motion } from "motion/react";
 import { sections, site, socials } from "../../data/site";
 import type { SectionId } from "../../data/site";
 import { useBodyLock } from "../../hooks/useBodyLock";
-import { fade, smooth, spring } from "../../lib/motion";
+import { smooth } from "../../lib/motion";
 import "./Menu.css";
 
 interface MenuProps {
   open: boolean;
-  active: SectionId | "contact";
-  onNavigate: (id: SectionId) => void;
-  onOpenContact?: () => void;
+  active: SectionId;
   onClose: () => void;
 }
 
-export default function Menu({ open, active, onNavigate, onOpenContact, onClose }: MenuProps) {
+/** Full-screen white sheet for phones: big bold links, socials underneath. */
+export default function Menu({ open, active, onClose }: MenuProps) {
   useBodyLock(open);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
@@ -38,70 +35,42 @@ export default function Menu({ open, active, onNavigate, onOpenContact, onClose 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={fade(0.26)}
+          transition={smooth(0.25)}
         >
           <nav className="menu__inner shell">
             <ul className="menu__list">
-              {sections.map((section, i) => (
+              {sections.map((s, i) => (
                 <motion.li
-                  key={section.id}
-                  initial={{ opacity: 0, y: 34 }}
-                  animate={{ opacity: 1, y: 0, transition: { ...spring.bouncy, delay: 0.08 + i * 0.06 } }}
-                  exit={{ opacity: 0, y: 14, transition: smooth(0.18) }}
+                  key={s.id}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0, transition: smooth(0.5, 0.05 + i * 0.04) }}
                 >
-                  <button
-                    type="button"
-                    className={`menu__link t-condensed${
-                      active === section.id ? " is-active" : ""
-                    }`}
-                    onClick={() => onNavigate(section.id)}
+                  <a
+                    className={`menu__link${active === s.id ? " is-active" : ""}`}
+                    href={`#${s.id}`}
+                    onClick={onClose}
                   >
-                    <span className="menu__index t-mono">0{i + 1}</span>
-                    {section.label}
-                  </button>
+                    <span className="menu__dot" aria-hidden="true" />
+                    {s.label}
+                  </a>
                 </motion.li>
               ))}
-
-              <motion.li
-                key="contact-page"
-                initial={{ opacity: 0, y: 34 }}
-                animate={{ opacity: 1, y: 0, transition: { ...spring.bouncy, delay: 0.08 + sections.length * 0.06 } }}
-                exit={{ opacity: 0, y: 14, transition: smooth(0.18) }}
-              >
-                <button
-                  type="button"
-                  className={`menu__link t-condensed${active === "contact" ? " is-active" : ""}`}
-                  onClick={() => {
-                    onClose();
-                    onOpenContact?.();
-                  }}
-                >
-                  <span className="menu__index t-mono">0{sections.length + 1}</span>
-                  contact
-                </button>
-              </motion.li>
             </ul>
 
-            <motion.div
-              className="menu__foot"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: fade(0.4, 0.3) }}
-              exit={{ opacity: 0, transition: fade(0.15) }}
-            >
-              <ul className="menu__socials t-mono">
+            <div className="menu__foot t-mono">
+              <ul className="menu__socials">
                 {socials.map((s) => (
                   <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noopener noreferrer">
+                    <a className="link" href={s.href} target="_blank" rel="noopener noreferrer">
                       {s.label}
                     </a>
                   </li>
                 ))}
               </ul>
-
-              <a className="menu__mail t-mono" href={`mailto:${site.contactEmail}`}>
+              <a className="link" href={`mailto:${site.contactEmail}`}>
                 {site.contactEmail}
               </a>
-            </motion.div>
+            </div>
           </nav>
         </motion.div>
       )}

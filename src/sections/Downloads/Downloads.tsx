@@ -2,11 +2,12 @@ import { useState } from "react";
 import type { CSSProperties } from "react";
 import { motion } from "motion/react";
 import Reveal from "../../components/Reveal/Reveal";
+import SectionHead from "../../components/SectionHead/SectionHead";
 import Glyph from "../../components/Glyph/Glyph";
 import { downloadApps } from "../../data/downloads";
 import type { DownloadApp } from "../../data/downloads";
 import releases from "../../data/releases.json";
-import { entrance } from "../../lib/motion";
+import { riseChild } from "../../lib/motion";
 import "./Downloads.css";
 
 interface Asset {
@@ -82,7 +83,8 @@ const apps: App[] = downloadApps.flatMap((app) => {
   return release?.assets.length ? [{ app, release, groups: groupByPlatform(release.assets) }] : [];
 });
 
-/* One app, with its files one click away: the platform switch opens on the
+
+/* One app, its files one click away: the platform switch opens on the
    visitor's own system when the release ships a build for it. */
 function AppCard({ app, release, groups }: App) {
   const [platform, setPlatform] = useState(() =>
@@ -93,42 +95,44 @@ function AppCard({ app, release, groups }: App) {
   const rows = Math.max(...groups.map(([, list]) => list.length));
 
   return (
-    <motion.li className="downloads__card glass" variants={entrance.rise}>
-      <div className="downloads__card-head">
-        <img className="downloads__logo" src={app.logo} alt="" />
-        <div>
-          <h3 className="downloads__name t-serif-italic">{app.title}</h3>
-          <a className="downloads__tag t-mono" href={release.html_url} target="_blank" rel="noopener noreferrer">
+    <motion.li className="dl__card" variants={riseChild}>
+      <div className="dl__head">
+        <img className="dl__logo" src={app.logo} alt="" />
+        <div className="dl__id">
+          <h3 className="dl__name t-heading">{app.title}</h3>
+          <a className="dl__tag t-mono link" href={release.html_url} target="_blank" rel="noopener noreferrer">
             {release.tag_name} · {formatDate(release.published_at)}
           </a>
         </div>
       </div>
 
-      <p className="downloads__desc">{app.description}</p>
+      <p className="dl__desc">{app.description}</p>
 
-      <div className="downloads__platforms t-mono" role="group" aria-label={`${app.title} — platform`}>
-        {groups.map(([os]) => (
-          <button
-            key={os}
-            type="button"
-            className="downloads__platform"
-            aria-pressed={os === platform}
-            onClick={() => setPlatform(os)}
-          >
-            {os}
-          </button>
-        ))}
-      </div>
+      {groups.length > 1 && (
+        <div className="dl__platforms t-mono" role="group" aria-label={`${app.title} — platform`}>
+          {groups.map(([os]) => (
+            <button
+              key={os}
+              type="button"
+              className="dl__platform"
+              aria-pressed={os === platform}
+              onClick={() => setPlatform(os)}
+            >
+              {os}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Keyed by platform so the rows replay their fade when the switch flips. */}
-      <ul key={platform} className="downloads__files" style={{ "--rows": rows } as CSSProperties}>
+      <ul key={platform} className="dl__files" style={{ "--rows": rows } as CSSProperties}>
         {files.map(({ asset, file }) => (
           <li key={asset.name}>
-            <a className="downloads__file t-mono" href={asset.browser_download_url} title={file}>
-              <span className="downloads__ext">{extensionOf(file)}</span>
-              <span className="downloads__file-name">{file}</span>
-              <span className="downloads__size">{formatSize(asset.size)}</span>
-              <Glyph name="download" className="downloads__arrow" />
+            <a className="dl__file t-mono" href={asset.browser_download_url} title={file}>
+              <span className="dl__ext">{extensionOf(file)}</span>
+              <span className="dl__file-name">{file}</span>
+              <span className="dl__size">{formatSize(asset.size)}</span>
+              <Glyph name="download" className="dl__icon" />
             </a>
           </li>
         ))}
@@ -139,29 +143,18 @@ function AppCard({ app, release, groups }: App) {
 
 export default function Downloads() {
   return (
-    <section id="downloads" className="section downloads" aria-label="Downloads">
-      <div className="shell downloads__inner">
-        <header className="downloads__head">
-          <Reveal as="span" className="downloads__title-wrap">
-            <h2 className="downloads__title t-condensed">
-              <span className="t-accent">downloads</span>
-            </h2>
-          </Reveal>
-          <Reveal className="downloads__sub t-mono" as="p" variant="fade" delay={0.16}>
-            latest releases, straight from github
-          </Reveal>
-        </header>
+    <section id="downloads" className="section shell" aria-label="Downloads">
+      <SectionHead caption="latest releases, straight from github" title="downloads" />
 
-        {apps.length === 0 ? (
-          <p className="downloads__status t-mono">no releases yet</p>
-        ) : (
-          <Reveal as="ul" className="downloads__grid" staggerChildren={0.1}>
-            {apps.map((entry) => (
-              <AppCard key={entry.app.repo} {...entry} />
-            ))}
-          </Reveal>
-        )}
-      </div>
+      {apps.length === 0 ? (
+        <p className="dl__status t-mono">no releases yet</p>
+      ) : (
+        <Reveal as="ul" className="dl__grid" staggerChildren={0.08}>
+          {apps.map((entry) => (
+            <AppCard key={entry.app.repo} {...entry} />
+          ))}
+        </Reveal>
+      )}
     </section>
   );
 }

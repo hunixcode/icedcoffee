@@ -31,17 +31,13 @@ download the *.zip file in the [releases](https://github.com/hunixcode/icedcoffe
 
 ## Featuring
 
-Sections : 
-- Landing-page (
-    small container with self description ; 
-    navbar floating
-)
+A single full-width page, black on white, following the original mockups below:
 
-Accessible through navbar :
-- Full Profile (resume-like profile)
-- All Projects (linked to github)
+- Landing (avatar, name, stack, links to GitHub and resume)
+- What do I do — project index linked to GitHub
 - Downloads (latest GitHub releases, snapshotted at build time — `npm run releases` to refresh)
-- Contact Form
+- AI-driven development — my take on AI-DD
+- Contact
 
 ## Design
 

@@ -1,240 +1,139 @@
-.work__inner {
-  display: flex;
-  flex-direction: column;
+/* name + tags · description · actions — one line per project. */
+.work__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr) 11rem;
+  grid-template-areas: "head desc actions";
   align-items: center;
-  gap: clamp(1.4rem, 3.64vw, 3.2rem);
-  width: 100%;
+  gap: clamp(1rem, 3vw, 3rem);
+  padding-block: clamp(1.25rem, 2vw, 1.75rem);
+  border-bottom: 1px solid var(--line);
+  isolation: isolate;
 }
 
-/* ---- heading ------------------------------------------------------------ */
+/* The hover wash bleeds into the gutters so the row reads edge to edge. */
+.work__row::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(var(--gutter) * -1);
+  z-index: -1;
+  background: var(--bg-soft);
+  opacity: 0;
+  transition: opacity 0.25s var(--ease);
+}
+
+.work__row:hover::before {
+  opacity: 1;
+}
 
 .work__head {
-  width: 100%;
-  text-align: center;
-}
-
-.work__title-wrap {
-  display: block;
+  grid-area: head;
 }
 
 .work__title {
-  position: relative;
-  display: inline-block;
-  font-size: var(--fs-section);
-  line-height: 0.82;
-}
-
-.work__badge {
-  position: absolute;
-  top: -0.34em;
-  right: -0.62em;
-  display: grid;
-  place-items: center;
-  width: 0.46em;
-  height: 0.46em;
-  background: var(--accent);
-  border-radius: 0.11em;
-  box-shadow: 0 6px 20px rgba(107, 75, 255, 0.5);
-}
-
-.work__badge img {
-  width: 34%;
-  height: auto;
-}
-
-.work__sub {
-  margin-top: clamp(0.5rem, 1.12vw, 1rem);
-  font-size: var(--fs-mono-md);
-  color: var(--muted);
-}
-
-/* ---- slide -------------------------------------------------------------- */
-
-/* Single-cell grid: the outgoing and incoming slides occupy the same cell, so
-   the stage keeps its height throughout the crossfade instead of collapsing. */
-.work__stage {
-  position: relative;
-  display: grid;
-  width: 100%;
-}
-
-.work__slide {
-  grid-area: 1 / 1;
-  display: grid;
-  grid-template-columns: clamp(220px, min(30vw, 42svh), 520px) minmax(0, 1fr);
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1.25rem, 3.43vw, 3.1rem);
-  padding: clamp(1.1rem, 2.4vw, 2rem);
-  border-radius: 1.5rem;
-}
-
-/* The fading-out slide must not swallow clicks meant for the new one. */
-.work__slide:not(:last-child) {
-  pointer-events: none;
-}
-
-.work__visual {
-  width: 100%;
-}
-
-.work__details {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  gap: 0.6em;
+  font-size: var(--fs-heading);
+  line-height: 1.2;
 }
 
-.work__project {
-  font-size: var(--fs-serif-md);
-  line-height: 1.05;
+.work__title .dot {
+  width: 0.4em;
+  height: 0.4em;
+  transition: scale 0.25s var(--ease);
+}
+
+.work__row:hover .work__title .dot {
+  scale: 1.35;
+}
+
+/* The whole row is the link to the repo; buttons sit above it. */
+.work__title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Tags line up under the name, past the dot. */
+.work__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.7rem;
+  padding-left: calc(var(--fs-heading) * 1);
+  font-size: var(--fs-mono-sm);
+}
+
+.work__tags li {
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
 }
 
 .work__desc {
-  max-width: 48ch;
-  margin-top: clamp(0.65rem, 1.4vw, 1.25rem);
-  font-family: var(--font-body);
-  font-size: clamp(0.95rem, 1.25vw, 1.3rem);
-  line-height: 1.65;
-  color: var(--ink-3);
-  text-wrap: pretty;
+  grid-area: desc;
+  max-width: 60ch;
+  color: var(--ink-2);
 }
-
-/* ---- actions ------------------------------------------------------------ */
 
 .work__actions {
+  grid-area: actions;
+  position: relative;
+  z-index: 1;
   display: flex;
-  align-items: center;
-  gap: clamp(0.55rem, 0.98vw, 0.9rem);
-  margin-top: clamp(1.05rem, 2.52vw, 2.25rem);
+  justify-content: flex-end;
+  gap: 0.6rem;
 }
 
-.work__download {
-  min-width: clamp(105px, 10.3vw, 148px);
-  height: clamp(40px, 3.5vw, 50px);
-  padding-inline: 1.05rem;
-  font-size: clamp(0.78rem, 1.17vw, 1.05rem);
-}
-
-.work__repo {
-  width: clamp(40px, 3.78vw, 55px);
-  height: clamp(40px, 3.78vw, 55px);
-  flex: 0 0 auto;
-}
-
-.work__repo img {
-  width: 59%;
-  height: auto;
-}
-
-/* ---- carousel nav ------------------------------------------------------- */
-
-.work__nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.55rem, 0.98vw, 0.9rem);
-  width: 100%;
-}
-
-/* Scale/tap comes from motion's `pressable`; CSS only handles the colours. */
+/* Hidden on desktop (buttons say it all), shown on phones as the row cue. */
 .work__arrow {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 auto;
-  border: 1.5px solid var(--rule);
-  border-radius: 50%;
-  color: var(--ink);
-  transition:
-    background 0.25s var(--ease),
-    border-color 0.25s var(--ease),
-    color 0.25s var(--ease);
+  display: none;
 }
 
-.work__arrow svg {
-  width: 14px;
-  height: 14px;
-}
+/* ---- tablets: description drops under the name --------------------------- */
 
-.work__arrow:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff;
-}
-
-.work__dots {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.work__dot {
-  display: block;
-  width: 7px;
-  height: 7px;
-  padding: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transition:
-    background 0.25s var(--ease),
-    width 0.42s var(--ease-back);
-}
-
-.work__dot:hover {
-  background: rgba(255, 255, 255, 0.45);
-}
-
-.work__dot.is-active {
-  width: 20px;
-  border-radius: 4px;
-  background: var(--accent-soft);
-  box-shadow: 0 0 10px rgba(107, 75, 255, 0.7);
-}
-
-.work__counter {
-  display: inline-flex;
-  align-items: baseline;
-  font-size: var(--fs-mono-sm);
-  color: var(--muted);
-  letter-spacing: 0.04em;
-  font-variant-numeric: tabular-nums;
-  white-space: pre;
-}
-
-/* Keeps the rolling digit from nudging the " / 03" as it swaps.
-   `mode="wait"` means only one digit is ever mounted, so a stable width is
-   all that is needed here. */
-.work__counter > span {
-  display: inline-block;
-  min-width: 2ch;
-  text-align: center;
-}
-
-/* ---- responsive --------------------------------------------------------- */
-
-@media (max-width: 700px), (max-width: 1024px) and (orientation: portrait) {
-  .work__slide {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    text-align: center;
-    gap: 1.5rem;
-  }
-
-  .work__visual {
-    width: min(clamp(260px, 60vw, 460px), 38svh, 100%);
-  }
-
-  .work__details {
-    align-items: center;
-  }
-
-  .work__title {
-    font-size: clamp(2.4rem, 11vw, 4.5rem);
+@media (max-width: 1100px) {
+  .work__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "head actions"
+      "desc desc";
+    row-gap: 1rem;
   }
 
   .work__desc {
-    max-width: 44ch;
-    font-size: clamp(0.92rem, 2.6vw, 1.2rem);
+    padding-left: calc(var(--fs-heading) * 1);
+  }
+}
+
+/* ---- phones ------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .work__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "head arrow"
+      "desc desc"
+      "actions actions";
+    row-gap: 0.85rem;
+  }
+
+  .work__arrow {
+    display: block;
+    grid-area: arrow;
+    align-self: start;
+    width: 1.25rem;
+    color: var(--muted);
+  }
+
+  .work__tags,
+  .work__desc {
+    padding-left: 0;
+  }
+
+  .work__actions {
+    justify-content: flex-start;
   }
 }
